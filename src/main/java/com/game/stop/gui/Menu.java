@@ -35,7 +35,7 @@ public class Menu extends JFrame{
     private static final int HEIGHT = 700;
 
 
-    private JButton btnNewGame;
+    private JButton btnLogin;
     private JButton btnExit;
 
     /**
@@ -47,7 +47,7 @@ public class Menu extends JFrame{
         pack();
         BufferedImage myImage = null;
         try {
-            myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Menu.png"));
+            myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Menu.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,8 +69,8 @@ public class Menu extends JFrame{
      */
     private void setUpButtons() {
         // Play Game
-        btnNewGame = new JButton("New Game");
-        btnNewGame.addActionListener(new ActionListener() {
+        btnLogin = new JButton("Login");
+        btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
                 //options.setVisible(true);
@@ -101,11 +101,11 @@ public class Menu extends JFrame{
      *
      */
     private void addButtons() {
-        btnNewGame.setBounds(400, 300, 224, 50);
-        getContentPane().add(btnNewGame);
+        btnLogin.setBounds(400, 450, 224, 50);
+        getContentPane().add(btnLogin);
 
 
-        btnExit.setBounds(400, 480, 224, 50);
+        btnExit.setBounds(400, 580, 224, 50);
         getContentPane().add(btnExit);
 
 
