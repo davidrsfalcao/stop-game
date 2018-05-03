@@ -3,10 +3,7 @@ package com.game.stop.gui;
 
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Color;
 import java.awt.Toolkit;
 
 /**
@@ -133,8 +128,6 @@ public class Menu extends JFrame{
      */
     public void initGame(){
         setVisible(false);
-        //GameFrame game = new GameFrame(new Menu(), guardType, nOgres);
-        //game.start();
         this.dispose();
     }
 
