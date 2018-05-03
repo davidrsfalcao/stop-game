@@ -1,20 +1,19 @@
 package com.game.stop.gui;
 
 
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 /**
  * Window of menu initial
@@ -23,7 +22,7 @@ import java.awt.Toolkit;
  * @author davidfalcao
  *
  */
-public class Menu extends JFrame{
+public class Menu extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private static final int WIDTH = 1024;
@@ -31,7 +30,10 @@ public class Menu extends JFrame{
 
 
     private JButton btnLogin;
+    private JButton btnLoginFacebook;
     private JButton btnExit;
+    private JTextField usernameText;
+    private JPasswordField passwordText;
 
     /**
      * Constructor
@@ -56,6 +58,9 @@ public class Menu extends JFrame{
         setUpButtons();
         addButtons();
 
+        getRootPane().setDefaultButton(btnLogin);
+        btnLogin.requestFocus();
+
     }
 
     /**
@@ -63,8 +68,9 @@ public class Menu extends JFrame{
      *
      */
     private void setUpButtons() {
-        // Play Game
+        // Login
         btnLogin = new JButton("Login");
+        btnLogin.setForeground(Color.RED);
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -73,6 +79,10 @@ public class Menu extends JFrame{
 
             }
         });
+
+        // Login Facebook
+        btnLoginFacebook = new JButton("Login Facebook");
+        btnLoginFacebook.setForeground(Color.BLUE);
 
         // Exit
         btnExit = new JButton("Quit");
@@ -87,7 +97,50 @@ public class Menu extends JFrame{
             }
         });
 
+        // Username Field
+        usernameText = new JTextField();
+        usernameText.setHorizontalAlignment(JTextField.CENTER);
+        usernameText.setForeground(Color.GRAY);
+        usernameText.setText("Username");
+        usernameText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (usernameText.getText().equals("Username")) {
+                    usernameText.setText("");
+                    usernameText.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (usernameText.getText().isEmpty()) {
+                    usernameText.setForeground(Color.GRAY);
+                    usernameText.setText("Username");
+                }
+            }
+        });
 
+        // Password Field
+        passwordText = new JPasswordField();
+        passwordText.setEchoChar('*');
+        passwordText.setHorizontalAlignment(JTextField.CENTER);
+        passwordText.setForeground(Color.GRAY);
+        passwordText.setText("Password");
+        passwordText.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (passwordText.getText().equals("Password")) {
+                    passwordText.setText("");
+                    passwordText.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passwordText.getText().isEmpty()) {
+                    passwordText.setForeground(Color.GRAY);
+                    passwordText.setText("Password");
+                }
+            }
+        });
 
     }
 
@@ -96,13 +149,21 @@ public class Menu extends JFrame{
      *
      */
     private void addButtons() {
-        btnLogin.setBounds(400, 450, 224, 50);
+        usernameText.setBounds(400, 240, 224, 50);
+        getContentPane().add(usernameText);
+
+        passwordText.setBounds(400, 300, 224, 50);
+        getContentPane().add(passwordText);
+
+        btnLogin.setBounds(400, 360, 224, 50);
         getContentPane().add(btnLogin);
 
+        btnLoginFacebook.setBounds(400, 420, 224, 50);
+        getContentPane().add(btnLoginFacebook);
 
-        btnExit.setBounds(400, 580, 224, 50);
+
+        btnExit.setBounds(400, 540, 224, 50);
         getContentPane().add(btnExit);
-
 
     }
 
