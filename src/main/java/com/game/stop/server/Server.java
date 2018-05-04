@@ -44,7 +44,6 @@ public class Server {
                     //new Thread(new ServerWorker(socket)).start();
                     System.out.println("Server up!");
 
-                    System.out.println("Server up!");
 //			        PrintWriter pw = new PrintWriter(this.socket.getOutputStream());
                     this.in = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
                     System.out.println(this.in.readLine());

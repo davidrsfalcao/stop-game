@@ -26,6 +26,7 @@ public class Peer {
 
     public Peer(int port, String ip) throws IOException {
 
+
         System.setProperty("javax.net.ssl.trustStore", this.getClass().getClassLoader().getResource("trustStore").getFile());
         System.setProperty("javax.net.ssl.trustStorePassword", "123456");
 
@@ -58,7 +59,7 @@ public class Peer {
 
             System.out.println("Server up!");
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
-            this.out.println("Hello from");
+            this.out.println("Hello from " + ip + ":" + port);
             this.out.close();
 
 
