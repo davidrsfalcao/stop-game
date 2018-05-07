@@ -12,8 +12,8 @@ public class Tests {
     public void test_valid_word(){
         GameLogic logic = new GameLogic();
 
-        logic.word_is_valid("david", Category.names);
-        assertEquals(true, logic.word_is_valid("david", Category.names));
+        logic.word_is_valid("david", Category.name);
+        assertEquals(true, logic.word_is_valid("david", Category.name));
 
     }
 
@@ -21,7 +21,7 @@ public class Tests {
     public void test_score(){
         GameLogic logic = new GameLogic();
 
-        String cat = Category.names;
+        String cat = Category.name;
         String word = "david";
         String[] other_words1 = {"pim", "pam", "pum"};
         String[] other_words2 = {"diogo", "Filipe", "TIAGO"};

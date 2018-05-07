@@ -1,5 +1,7 @@
 package com.game.stop.game;
 
+import com.game.stop.database.Database;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,9 +20,9 @@ public class GameLogic {
 
         HashMap<String, String> words = db.getWords();
 
-        if(words.containsKey(word.toUpperCase())){
+        if(words.containsKey(word.toLowerCase())){
 
-            String cat = words.get(word.toUpperCase());
+            String cat = words.get(word.toLowerCase());
 
             if(cat.equals(category)){
                 return true;
