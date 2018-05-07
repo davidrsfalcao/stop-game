@@ -16,15 +16,17 @@ public class GameLogic {
     }
 
 
-    public boolean word_is_valid(String word, String category){
+    public boolean word_is_valid(String word, String category, char letter){
 
         HashMap<String, String> words = db.getWords();
 
         if(words.containsKey(word.toLowerCase())){
 
             String cat = words.get(word.toLowerCase());
+            char first_letter = word.substring(0, 1).charAt(0);;
+            
 
-            if(cat.equals(category)){
+            if(cat.equals(category) && (first_letter ==letter)){
                 return true;
             }
 
@@ -33,9 +35,9 @@ public class GameLogic {
         return false;
     }
 
-    public int word_score(String word, String category, String[] other_word){
+    public int word_score(String word, String category, String[] other_word, char letter){
 
-        if(!word_is_valid(word, category))
+        if(!word_is_valid(word, category, letter))
             return 0;
 
 
@@ -43,7 +45,7 @@ public class GameLogic {
 
         for( String wd : other_word){
 
-            if (word_is_valid(wd, category)){
+            if (word_is_valid(wd, category, letter)){
                 valid_words.add(wd);
             }
         }

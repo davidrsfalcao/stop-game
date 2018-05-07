@@ -44,8 +44,8 @@ public class Database {
         ResultSet rs = stat.executeQuery("Select * From Words;");
 
         while (rs.next()) {
-            String word = rs.getString("word");
-            String category = rs.getString("category");
+            String word = rs.getString("word").toLowerCase();
+            String category = rs.getString("category").toLowerCase();
             words.put(word, category);
 
         }

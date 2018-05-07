@@ -12,8 +12,8 @@ public class Tests {
     public void test_valid_word(){
         GameLogic logic = new GameLogic();
 
-        logic.word_is_valid("david", Category.name);
-        assertEquals(true, logic.word_is_valid("david", Category.name));
+        boolean res = logic.word_is_valid("david", Category.name, 'd');
+        assertEquals(true, res);
 
     }
 
@@ -23,15 +23,16 @@ public class Tests {
 
         String cat = Category.name;
         String word = "david";
-        String[] other_words1 = {"pim", "pam", "pum"};
+        String[] other_words1 = {"dim", "dam", "dum"};
         String[] other_words2 = {"diogo", "Filipe", "TIAGO"};
         String[] other_words3 = {"david", "Filipe", "TIAGO"};
 
 
-        assertEquals(20, logic.word_score(word, cat, other_words1));
-        assertEquals(10, logic.word_score(word, cat, other_words2));
-        assertEquals(5, logic.word_score(word, cat, other_words3));
-        assertEquals(0, logic.word_score("random", cat, other_words3));
-        
+        assertEquals(20, logic.word_score(word, cat, other_words1, 'd'));
+        assertEquals(10, logic.word_score(word, cat, other_words2, 'd'));
+        assertEquals(5, logic.word_score(word, cat, other_words3, 'd'));
+        assertEquals(0, logic.word_score(word, cat, other_words3, 'a'));
+
+
     }
 }
