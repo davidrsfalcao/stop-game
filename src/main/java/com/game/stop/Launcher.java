@@ -12,14 +12,13 @@ import java.util.Scanner;
 public class Launcher {
 
     public static void main(String[] args){
-        //Menu game = new Menu();
-        //game.start();
+        Menu game = new Menu();
+        game.start();
 
         System.out.println("Testing:\n");
         System.out.println("1: Server");
         System.out.println("2: Peer");
         System.out.println("Other: break");
-
 
 
         int a;
@@ -49,21 +48,6 @@ public class Launcher {
                 break;
 
         }
-        /*
-        try {
-            Server server = new Server(8080);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-
-        /*
-        try {
-            Peer peer = new Peer(8080, "172.30.18.58");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
 
     }

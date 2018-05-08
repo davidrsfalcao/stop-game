@@ -1,6 +1,8 @@
 package com.game.stop.gui;
 
 
+import com.game.stop.cli.LoginRegister;
+
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -69,13 +71,27 @@ public class Menu extends JFrame {
      */
     private void setUpButtons() {
         // Login
-        btnLogin = new JButton("Login");
+        btnLogin = new JButton("Login/Register");
         btnLogin.setForeground(Color.RED);
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                //options.setVisible(true);
-                //options.toFront();
+
+                if((usernameText.getText() != "") & (usernameText.getForeground() != Color.GRAY)){
+
+                    String res = "";
+                    for(char a : passwordText.getPassword()){
+                        res+= a;
+                    }
+
+                    if((res != "") & (passwordText.getForeground() != Color.GRAY)){
+                        LoginRegister logres = new LoginRegister(usernameText.getText(), res);
+                    }
+
+
+
+                }
+
 
             }
         });

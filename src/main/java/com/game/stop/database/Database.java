@@ -27,7 +27,6 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //set_up_words();
     }
 
 
