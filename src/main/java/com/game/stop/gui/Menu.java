@@ -1,7 +1,7 @@
 package com.game.stop.gui;
 
 
-import com.game.stop.cli.LoginRegister;
+import com.game.stop.server.LoginRegister;
 
 import java.awt.*;
 import java.awt.event.FocusEvent;

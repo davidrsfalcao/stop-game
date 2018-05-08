@@ -32,7 +32,7 @@ public class Database {
 
     private void set_up_connection_db() throws Exception{
         Class.forName("org.sqlite.JDBC");
-        String db_url = "jdbc:sqlite:" + getClass().getClassLoader().getResource("database.db").getFile();
+        String db_url = "jdbc:sqlite:" + getClass().getClassLoader().getResource("database/database.db").getFile();
 
         conn = DriverManager.getConnection(db_url);
 
