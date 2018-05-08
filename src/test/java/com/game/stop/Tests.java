@@ -15,6 +15,12 @@ public class Tests {
         boolean res = logic.word_is_valid("david", Category.name, 'd');
         assertEquals(true, res);
 
+        res = logic.word_is_valid("Portugal", Category.country, 'p');
+        assertEquals(true, res);
+
+        res = logic.word_is_valid("Spain", Category.country, 's');
+        assertEquals(true, res);
+
     }
 
     @Test
@@ -32,7 +38,6 @@ public class Tests {
         assertEquals(10, logic.word_score(word, cat, other_words2, 'd'));
         assertEquals(5, logic.word_score(word, cat, other_words3, 'd'));
         assertEquals(0, logic.word_score(word, cat, other_words3, 'a'));
-
 
     }
 }

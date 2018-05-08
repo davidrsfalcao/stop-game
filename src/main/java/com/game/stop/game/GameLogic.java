@@ -15,7 +15,6 @@ public class GameLogic {
 
     }
 
-
     public boolean word_is_valid(String word, String category, char letter){
 
         HashMap<String, String> words = db.getWords();
@@ -23,8 +22,7 @@ public class GameLogic {
         if(words.containsKey(word.toLowerCase())){
 
             String cat = words.get(word.toLowerCase());
-            char first_letter = word.substring(0, 1).charAt(0);;
-            
+            char first_letter = word.toLowerCase().substring(0, 1).charAt(0);;
 
             if(cat.equals(category) && (first_letter ==letter)){
                 return true;
