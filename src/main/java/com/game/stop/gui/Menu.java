@@ -2,6 +2,7 @@ package com.game.stop.gui;
 
 
 import com.game.stop.server.LoginRegister;
+import com.game.stop.server.Server;
 
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -99,6 +100,17 @@ public class Menu extends JFrame {
         // Login Facebook
         btnLoginFacebook = new JButton("Login Facebook");
         btnLoginFacebook.setForeground(Color.BLUE);
+        btnLoginFacebook.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                try {
+                    Server server = new Server(8080);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         // Exit
         btnExit = new JButton("Quit");
