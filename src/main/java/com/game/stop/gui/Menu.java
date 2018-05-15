@@ -29,6 +29,8 @@ public class Menu extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int WIDTH = 1024;
     private static final int HEIGHT = 700;
+    private int ratio = 1;
+    private Dimension dim;
 
 
     private JButton btnLogin;
@@ -50,8 +52,11 @@ public class Menu extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        dim = Toolkit.getDefaultToolkit().getScreenSize();
+        calculateScreenRatio();
+
         Resizer a = new Resizer();
-        myImage = a.resize(myImage, WIDTH,HEIGHT);
+        myImage = a.resize(myImage, WIDTH*ratio,HEIGHT*ratio);
         setContentPane(new ImagePanel(myImage));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -87,8 +92,6 @@ public class Menu extends JFrame {
                     if((res != "") & (passwordText.getForeground() != Color.GRAY)){
                         LoginRegister logres = new LoginRegister(usernameText.getText(), res);
                     }
-
-
 
                 }
 
@@ -165,20 +168,27 @@ public class Menu extends JFrame {
      *
      */
     private void addButtons() {
-        usernameText.setBounds(400, 240, 224, 50);
+        Font font = new Font("Arial", Font.PLAIN, 12*ratio);
+
+        usernameText.setBounds(400*ratio, 240*ratio, 224*ratio, 50*ratio);
+        usernameText.setFont(font);
         getContentPane().add(usernameText);
 
-        passwordText.setBounds(400, 300, 224, 50);
+        passwordText.setBounds(400*ratio, 300*ratio, 224*ratio, 50*ratio);
+        passwordText.setFont(font);
         getContentPane().add(passwordText);
 
-        btnLogin.setBounds(400, 360, 224, 50);
+        btnLogin.setBounds(400*ratio, 360*ratio, 224*ratio, 50*ratio);
+        btnLogin.setFont(font);
         getContentPane().add(btnLogin);
 
-        btnLoginFacebook.setBounds(400, 420, 224, 50);
+        btnLoginFacebook.setBounds(400*ratio, 420*ratio, 224*ratio, 50*ratio);
+        btnLoginFacebook.setFont(font);
         getContentPane().add(btnLoginFacebook);
 
 
-        btnExit.setBounds(400, 540, 224, 50);
+        btnExit.setBounds(400*ratio, 540*ratio, 224*ratio, 50*ratio);
+        btnExit.setFont(font);
         getContentPane().add(btnExit);
 
     }
@@ -188,13 +198,15 @@ public class Menu extends JFrame {
      *
      */
     public void start() {
-        setSize(WIDTH, HEIGHT);
+        setSize(WIDTH*ratio, HEIGHT*ratio);
 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2
                 - getSize().height / 2);
 
         setVisible(true);
+
+
+
     }
 
 
@@ -206,6 +218,23 @@ public class Menu extends JFrame {
     public void initGame(){
         setVisible(false);
         this.dispose();
+    }
+
+
+    /**
+     * Calculate window ratio
+     *
+     */
+    public void calculateScreenRatio(){
+
+       int ratio_x =  (int) dim.getWidth() / WIDTH;
+       int ratio_y = (int) dim.getHeight() / HEIGHT;
+
+       ratio = Math.min(ratio_x, ratio_y);
+
+       if(ratio < 1)
+           ratio =1;
+
     }
 
 
