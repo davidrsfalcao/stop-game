@@ -4,14 +4,26 @@ import com.game.stop.database.Database;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GameLogic {
 
     private Database db;
 
+    private ArrayList<Character> letters = new ArrayList<Character>();
     public GameLogic(){
 
         db = new Database();
+        init_letters();
+
+    }
+
+    private void init_letters(){
+        String tmp = "abcdefghijklmnopqrstuvwxyz";
+
+        for(int i = 0; i<tmp.length(); i++){
+            letters.add(tmp.charAt(i));
+        }
 
     }
 
@@ -57,5 +69,20 @@ public class GameLogic {
 
         return 10;
 
+    }
+
+    public ArrayList<Character> getLetters(){
+        return letters;
+    }
+
+    public char choose_letter(){
+
+        Random gerador = new Random();
+        int letters_left = letters.size();
+        int index = gerador.nextInt(letters_left);
+        char letter = letters.get(index);
+        letters.remove(index);
+
+        return letter;
     }
 }

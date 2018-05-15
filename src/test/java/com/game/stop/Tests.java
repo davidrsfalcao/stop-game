@@ -4,6 +4,8 @@ import com.game.stop.game.Category;
 import com.game.stop.game.GameLogic;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Tests {
@@ -38,6 +40,22 @@ public class Tests {
         assertEquals(10, logic.word_score(word, cat, other_words2, 'd'));
         assertEquals(5, logic.word_score(word, cat, other_words3, 'd'));
         assertEquals(0, logic.word_score(word, cat, other_words3, 'a'));
+
+    }
+
+    @Test
+    public void test_random_letter(){
+        GameLogic logic = new GameLogic();
+        ArrayList<Character> letters = new GameLogic().getLetters();
+        char letter;
+
+        for(int i=25; i >= 0; i--){
+            letter = logic.choose_letter();
+
+            assertEquals(true, letters.contains(letter));
+            assertEquals(i, logic.getLetters().size());
+
+        }
 
     }
 }

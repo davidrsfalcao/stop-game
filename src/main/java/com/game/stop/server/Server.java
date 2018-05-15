@@ -1,7 +1,6 @@
 package com.game.stop.server;
 
 import javax.net.ssl.*;
-import java.net.*;
 import java.io.*;
 
 public class Server {
@@ -18,7 +17,7 @@ public class Server {
     public Server(int port) throws IOException {
 
 
-        String file = this.getClass().getClassLoader().getResource("server.keys").getFile();
+        String file = this.getClass().getClassLoader().getResource("server.keys").getPath();
 
         System.setProperty("javax.net.ssl.keyStore", file);
         System.setProperty("javax.net.ssl.keyStorePassword", "123456");
