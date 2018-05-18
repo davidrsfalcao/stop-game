@@ -1,9 +1,12 @@
 package communication;
 
-public class Header {
-    private String messageType;
+public interface Header {
+    public final static String SEPARATOR = "!@!";
+
+    public final static String ERROR = "ERROR";
+    public final static String LOGIN = "LOGIN";
 
 
-
-
+    public final static String SUCCESS = "SUCCESS";
+    public final static String FAILURE = "FAILURE";
 }
