@@ -1,7 +1,6 @@
 package gui;
 
 
-import server.LoginRegister;
 import server.Server;
 
 import java.awt.*;
@@ -91,7 +90,7 @@ public class Menu extends JFrame {
                     }
 
                     if((res != "") & (passwordText.getForeground() != Color.GRAY)){
-                        LoginRegister logres = new LoginRegister(usernameText.getText(), res);
+                        //LoginRegister logres = new LoginRegister(usernameText.getText(), res);
                     }
 
                 }

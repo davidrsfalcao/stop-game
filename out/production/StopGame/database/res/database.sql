@@ -690,7 +690,6 @@ Insert Into Words(word, category) Values ("Hudson", "name");
 Insert Into Words(word, category) Values ("Huffington", "name");
 Insert Into Words(word, category) Values ("Hugh", "name");
 Insert Into Words(word, category) Values ("Hunter", "name");
-Insert Into Words(word, category) Values ("Hunter", "name");
 Insert Into Words(word, category) Values ("Huntington", "name");
 Insert Into Words(word, category) Values ("Huntley", "name");
 Insert Into Words(word, category) Values ("Hurst", "name");

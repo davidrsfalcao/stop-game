@@ -11,11 +11,16 @@ public class GameLogic {
     private Database db;
 
     private ArrayList<Character> letters = new ArrayList<Character>();
+
     public GameLogic(){
 
         db = new Database();
         init_letters();
 
+    }
+
+    public Database getDb(){
+        return db;
     }
 
     private void init_letters(){

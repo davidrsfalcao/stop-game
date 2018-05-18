@@ -1,7 +1,10 @@
 package server;
 
+import com.oracle.tools.packager.IOUtils;
+
 import javax.net.ssl.*;
 import java.io.*;
+import java.net.URL;
 
 public class Server {
     private static SSLSocket client;  //cuncurrent hash map!
@@ -16,10 +19,17 @@ public class Server {
 
     public Server(int port) throws IOException {
 
+        //File file = new File("sss.keys");
+        InputStream file = getClass().getResourceAsStream("server.keys");
+        byte[] buffer = new byte[file.available()];
+        file.read(buffer);
 
-        String file = this.getClass().getResource("server.keys").getPath();
+        File targetFile = new File("sss.keys");
+        OutputStream outStream = new FileOutputStream(targetFile);
+        outStream.write(buffer);
 
-        System.setProperty("javax.net.ssl.keyStore", file);
+
+        System.setProperty("javax.net.ssl.keyStore", targetFile.getAbsolutePath());
         System.setProperty("javax.net.ssl.keyStorePassword", "123456");
 //		System.setProperty("javax.net.ssl.trustStore", "../trustStore");
 //		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
