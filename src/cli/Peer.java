@@ -1,9 +1,9 @@
 package cli;
-import java.io.*;
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
-import javax.net.ssl.*;
-import java.net.*;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
 
 
 public class Peer {
@@ -26,8 +26,16 @@ public class Peer {
 
     public Peer(int port, String ip) throws IOException {
 
+        //File file = new File("sss.keys");
+        InputStream file = getClass().getResourceAsStream("trustStore");
+        byte[] buffer = new byte[file.available()];
+        file.read(buffer);
 
-        System.setProperty("javax.net.ssl.trustStore", this.getClass().getResource("trustStore").getFile());
+        File targetFile = new File("ts");
+        OutputStream outStream = new FileOutputStream(targetFile);
+        outStream.write(buffer);
+
+        System.setProperty("javax.net.ssl.trustStore", targetFile.getAbsolutePath());
         System.setProperty("javax.net.ssl.trustStorePassword", "123456");
 
 

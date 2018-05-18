@@ -7,20 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b66562e-96fd-45f1-a11e-098be33124d4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/messages/ErrorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/messages/LoginMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/messages/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/responses/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/responses/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tests/MessageTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StopGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/StopGame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StopGame/communication/Header.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StopGame/communication/Header.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StopGame/tests/GameLogicTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StopGame/tests/GameLogicTests.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/communication/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/Header.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/GameLogicTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/GameLogicTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cli/Peer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,8 +28,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+            <state relative-caret-position="128">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="28" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,11 +59,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MessageTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tests/MessageTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
               <caret line="59" column="60" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Peer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cli/Peer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="254">
+              <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,7 +156,6 @@
         <option value="$PROJECT_DIR$/src/gui/Resizer.java" />
         <option value="$PROJECT_DIR$/src/gui/ImagePanel.java" />
         <option value="$PROJECT_DIR$/src/game/Category.java" />
-        <option value="$PROJECT_DIR$/src/cli/Peer.java" />
         <option value="$PROJECT_DIR$/src/database/Users.java" />
         <option value="$PROJECT_DIR$/src/database/Database.java" />
         <option value="$PROJECT_DIR$/src/game/GameLogic.java" />
@@ -177,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/communication/responses/Response.java" />
         <option value="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" />
         <option value="$PROJECT_DIR$/src/tests/MessageTests.java" />
+        <option value="$PROJECT_DIR$/src/cli/Peer.java" />
       </list>
     </option>
   </component>
@@ -211,33 +210,30 @@
             <path>
               <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameStop" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GameStop" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GameStop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameStop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
+              <item name="cli" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameStop" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-              <item name="messages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameStop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="communication" type="462c0819:PsiDirectoryNode" />
-              <item name="responses" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameStop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameStop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -394,7 +390,7 @@
       <option name="presentableId" value="Default" />
       <updated>1526494615570</updated>
       <workItem from="1526494620545" duration="962000" />
-      <workItem from="1526638322123" duration="17345000" />
+      <workItem from="1526638322123" duration="17683000" />
     </task>
     <servers />
   </component>
@@ -431,7 +427,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18307000" />
+    <option name="totallyTimeSpent" value="18645000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="729" extended-state="6" />
@@ -447,12 +443,12 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32977098" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32977098" />
       <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2078125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2078125" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32977098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -615,16 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cli/Peer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/json/Cookie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -653,16 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2062">
           <caret line="692" selection-start-line="692" selection-end-line="692" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,6 +721,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
           <caret line="59" column="60" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="28" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cli/Peer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
