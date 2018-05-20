@@ -25,6 +25,8 @@ public abstract class Response implements Header {
             case REGISTER:
                 return new RegisterResponse(args);
 
+            case LISTROOMS:
+                return new ListRoomsResponse(args);
         }
 
         return new ErrorResponse("Invalid response type");

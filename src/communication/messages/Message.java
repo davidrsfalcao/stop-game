@@ -25,6 +25,9 @@ public abstract class Message implements Header {
             case REGISTER:
                 return new RegisterMessage(args);
 
+            case LISTROOMS:
+                return new ListRoomsMessage();
+
         }
 
         return new ErrorMessage("Invalid message");

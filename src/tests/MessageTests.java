@@ -1,13 +1,17 @@
 package tests;
 
 import communication.Header;
+import communication.messages.ListRoomsMessage;
 import communication.messages.LoginMessage;
 import communication.messages.Message;
 import communication.messages.RegisterMessage;
+import communication.responses.ListRoomsResponse;
 import communication.responses.LoginResponse;
 import communication.responses.RegisterResponse;
 import communication.responses.Response;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -77,6 +81,14 @@ public class MessageTests {
         assert(received_response1 instanceof LoginResponse);
         assertEquals(Header.ERROR, received_response1.getType());
 
+        String result1 = Header.SUCCESS;
+
+        /* Testar criar resposta*/
+        String expected_message2 = Header.LOGIN + Header.SEPARATOR + result1;
+        String response2 = new LoginResponse(result1, "").toString();
+
+        assertEquals(expected_message2, response2);
+
     }
 
     @Test
@@ -142,6 +154,55 @@ public class MessageTests {
 
         assert(received_response1 instanceof RegisterResponse);
         assertEquals(Header.ERROR, received_response1.getType());
+
+    }
+
+    @Test
+    public void test_list_rooms_messages(){
+
+        /* Testar criar mensagem*/
+        String expected_message = Header.LISTROOMS;
+        String message = new ListRoomsMessage().toString();
+
+        assertEquals(expected_message, message);
+
+        /* Testar interpretar mensagem*/
+        Message received_message = Message.parse(message);
+        assert(received_message instanceof LoginMessage);
+
+    }
+
+    @Test
+    public void test_list_rooms_responses(){
+
+        /* Testar criar reposta failure*/
+        String expected_response = Header.LISTROOMS + Header.SEPARATOR + Header.FAILURE;
+        String response = new ListRoomsResponse(Header.FAILURE, null).toString();
+
+        assertEquals(expected_response, response);
+
+        /* Testar interpretar resposta failure*/
+        Response received_response = Response.parse(response);
+        assert(received_response instanceof ListRoomsResponse);
+        assertEquals(Header.FAILURE, ((ListRoomsResponse) received_response).getResult());
+
+        /* Testar criar reposta sucess*/
+        String expected_response1 = Header.LISTROOMS;
+        ArrayList<String> rooms = new ArrayList<String>();
+        for(int i=0; i<5; i++){
+            expected_response1 += Header.SEPARATOR + "room " + i;
+            rooms.add("room " + i);
+        }
+
+        String response1 = new ListRoomsResponse(Header.SUCCESS, rooms).toString();
+
+        assertEquals(expected_response1, response1);
+
+        /* Testar interpretar resposta failure*/
+        Response received_response1 = Response.parse(response);
+        assert(received_response1 instanceof ListRoomsResponse);
+        assertEquals(Header.SUCCESS, ((ListRoomsResponse) received_response).getResult());
+        assertEquals(5, ((ListRoomsResponse) received_response).getRooms().size());
 
     }
 
