@@ -22,6 +22,9 @@ public abstract class Response implements Header {
             case LOGIN:
                 return new LoginResponse(args);
 
+            case REGISTER:
+                return new RegisterResponse(args);
+
         }
 
         return new ErrorResponse("Invalid response type");

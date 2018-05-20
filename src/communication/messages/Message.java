@@ -22,6 +22,8 @@ public abstract class Message implements Header {
             case LOGIN:
                 return new LoginMessage(args);
 
+            case REGISTER:
+                return new RegisterMessage(args);
 
         }
 
