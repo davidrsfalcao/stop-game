@@ -4,7 +4,7 @@ public class JoinRoomResponse extends  Response{
 
     private String result;
 
-    public JoinRoomResponse(String result, String certificate){
+    public JoinRoomResponse(String result){
         this.result = result;
     }
 

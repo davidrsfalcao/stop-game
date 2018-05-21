@@ -17,7 +17,10 @@ public class JoinRoomMessage extends Message {
 
         roomId = args[1];
 
-        this.type  = JOINROOM;
+        if(args[1].equals("")){
+            this.type = ERROR;
+        }
+        else this.type  = JOINROOM;
     }
 
     @Override

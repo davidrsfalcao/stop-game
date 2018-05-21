@@ -27,6 +27,9 @@ public abstract class Response implements Header {
 
             case LISTROOMS:
                 return new ListRoomsResponse(args);
+
+            case JOINROOM:
+                return new JoinRoomResponse(args);
         }
 
         return new ErrorResponse("Invalid response type");

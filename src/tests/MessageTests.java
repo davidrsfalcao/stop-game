@@ -1,14 +1,8 @@
 package tests;
 
 import communication.Header;
-import communication.messages.ListRoomsMessage;
-import communication.messages.LoginMessage;
-import communication.messages.Message;
-import communication.messages.RegisterMessage;
-import communication.responses.ListRoomsResponse;
-import communication.responses.LoginResponse;
-import communication.responses.RegisterResponse;
-import communication.responses.Response;
+import communication.messages.*;
+import communication.responses.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -203,6 +197,83 @@ public class MessageTests {
         assert(received_response1 instanceof ListRoomsResponse);
         assertEquals(Header.SUCCESS, ((ListRoomsResponse) received_response1).getResult());
         assertEquals(5, ((ListRoomsResponse) received_response1).getRooms().size());
+
+    }
+
+    @Test
+    public void test_join_room_messages(){
+
+        String room_id = "4732647";
+
+        /* Testar criar mensagem*/
+        String expected_message = Header.JOINROOM + Header.SEPARATOR + room_id;
+        String message = new JoinRoomMessage(room_id).toString();
+
+        assertEquals(expected_message, message);
+
+        /* Testar interpretar mensagem*/
+        Message received_message = Message.parse(message);
+
+        assert(received_message instanceof JoinRoomMessage);
+        assertEquals(room_id, ((JoinRoomMessage) received_message).getRoomId());
+
+        /* Testar enviar mensagem com campos vazios */
+        String expected_message1 = Header.JOINROOM + Header.SEPARATOR + "";
+        String message1 = new JoinRoomMessage("").toString();
+
+        assertEquals(expected_message1, message1);
+
+        /* Testar interpretar mensagem com campos vazios */
+        Message received_message1 = Message.parse(message1);
+
+        assert(received_message1 instanceof JoinRoomMessage);
+        assertEquals(Header.ERROR, received_message1.getType());
+
+    }
+
+    @Test
+    public void test_join_room_responses(){
+
+        String result = Header.SUCCESS;
+
+        /* Testar criar resposta*/
+        String expected_message = Header.JOINROOM + Header.SEPARATOR + result;
+        String response = new JoinRoomResponse(result).toString();
+
+        assertEquals(expected_message, response);
+
+        /* Testar interpretar resposta*/
+        Response received_response = Response.parse(response);
+
+        assert(received_response instanceof JoinRoomResponse);
+        assertEquals(result, ((JoinRoomResponse) received_response).getResult());
+
+        /* Testar enviar resposta com campos vazios */
+        String expected_response1 = Header.JOINROOM + Header.SEPARATOR + "";
+        String response1 = new JoinRoomResponse("").toString();
+
+        assertEquals(expected_response1, response1);
+
+        /* Testar interpretar resposta com campos vazios */
+        Response received_response1 = Response.parse(response1);
+
+        assert(received_response1 instanceof JoinRoomResponse);
+        assertEquals(Header.ERROR, received_response1.getType());
+
+        String result1 = Header.FAILURE;
+
+        /* Testar criar resposta failure*/
+        String expected_message2 = Header.JOINROOM + Header.SEPARATOR + result1;
+        String response2 = new JoinRoomResponse(result1).toString();
+
+        assertEquals(expected_message2, response2);
+
+        /* Testar interpretar resposta failure */
+        Response received_response2 = Response.parse(response2);
+
+        assert(received_response2 instanceof JoinRoomResponse);
+        assertEquals(Header.JOINROOM, received_response2.getType());
+        assertEquals(result1, ((JoinRoomResponse) received_response2).getResult());
 
     }
 
