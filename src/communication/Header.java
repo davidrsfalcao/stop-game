@@ -7,6 +7,7 @@ public interface Header {
     public final static String LOGIN = "LOGIN";
     public final static String REGISTER = "REGISTER";
     public final static String LISTROOMS = "LISTROOMS";
+    public final static String JOINROOM = "JOINROOM";
 
 
     public final static String SUCCESS = "SUCCESS";

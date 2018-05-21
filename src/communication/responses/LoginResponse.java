@@ -21,6 +21,7 @@ public class LoginResponse extends  Response{
             this.type = ERROR;
             return;
         }
+        else this.result = args[1];
 
         this.type = LOGIN;
 

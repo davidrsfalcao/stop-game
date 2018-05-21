@@ -21,6 +21,7 @@ public class RegisterResponse extends  Response{
             this.type = ERROR;
             return;
         }
+        else this.result = args[1];
 
         this.type = REGISTER;
 
@@ -44,7 +45,7 @@ public class RegisterResponse extends  Response{
         if(result.equals(SUCCESS)){
             return REGISTER + SEPARATOR + result + SEPARATOR + certificate;
         }
-        else return LOGIN + SEPARATOR + result;
+        else return REGISTER + SEPARATOR + result;
 
     }
 

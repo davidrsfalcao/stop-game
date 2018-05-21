@@ -70,7 +70,7 @@ public class MessageTests {
         assertEquals(certeficate, ((LoginResponse) received_response).getCertificate());
 
         /* Testar enviar resposta com campos vazios */
-        String expected_response1 = Header.LOGIN + Header.SEPARATOR + "" + Header.SEPARATOR + "";
+        String expected_response1 = Header.LOGIN + Header.SEPARATOR + "";
         String response1 = new LoginResponse("", "").toString();
 
         assertEquals(expected_response1, response1);
@@ -81,7 +81,7 @@ public class MessageTests {
         assert(received_response1 instanceof LoginResponse);
         assertEquals(Header.ERROR, received_response1.getType());
 
-        String result1 = Header.SUCCESS;
+        String result1 = Header.FAILURE;
 
         /* Testar criar resposta*/
         String expected_message2 = Header.LOGIN + Header.SEPARATOR + result1;
@@ -106,7 +106,7 @@ public class MessageTests {
         /* Testar interpretar mensagem*/
         Message received_message = Message.parse(message);
 
-        assert(received_message instanceof LoginMessage);
+        assert(received_message instanceof RegisterMessage);
         assertEquals(username, ((RegisterMessage) received_message).getUsername());
         assertEquals(password, ((RegisterMessage) received_message).getPassword());
 
@@ -144,7 +144,7 @@ public class MessageTests {
         assertEquals(certeficate, ((RegisterResponse) received_response).getCertificate());
 
         /* Testar enviar resposta com campos vazios */
-        String expected_response1 = Header.REGISTER + Header.SEPARATOR + "" + Header.SEPARATOR + "";
+        String expected_response1 = Header.REGISTER + Header.SEPARATOR + "";
         String response1 = new RegisterResponse("", "").toString();
 
         assertEquals(expected_response1, response1);
@@ -168,7 +168,7 @@ public class MessageTests {
 
         /* Testar interpretar mensagem*/
         Message received_message = Message.parse(message);
-        assert(received_message instanceof LoginMessage);
+        assert(received_message instanceof ListRoomsMessage);
 
     }
 
@@ -198,11 +198,11 @@ public class MessageTests {
 
         assertEquals(expected_response1, response1);
 
-        /* Testar interpretar resposta failure*/
-        Response received_response1 = Response.parse(response);
+        /* Testar interpretar resposta sucess*/
+        Response received_response1 = Response.parse(response1);
         assert(received_response1 instanceof ListRoomsResponse);
-        assertEquals(Header.SUCCESS, ((ListRoomsResponse) received_response).getResult());
-        assertEquals(5, ((ListRoomsResponse) received_response).getRooms().size());
+        assertEquals(Header.SUCCESS, ((ListRoomsResponse) received_response1).getResult());
+        assertEquals(5, ((ListRoomsResponse) received_response1).getRooms().size());
 
     }
 

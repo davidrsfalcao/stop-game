@@ -7,16 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b66562e-96fd-45f1-a11e-098be33124d4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/communication/messages/ListRoomsMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/communication/responses/ListRoomsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/communication/messages/JoinRoomMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/communication/responses/JoinRoomResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/StopGame_jar/StopGame.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/StopGame_jar/StopGame.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StopGame/communication/Header.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StopGame/communication/Header.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StopGame/communication/messages/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StopGame/communication/messages/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/StopGame/tests/MessageTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/StopGame/tests/MessageTests.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/communication/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/Header.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/communication/messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/messages/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/communication/responses/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/responses/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/communication/responses/RegisterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/communication/responses/RegisterResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests/MessageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/MessageTests.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,35 +32,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Launcher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Launcher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/communication/messages/Message.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+            <state relative-caret-position="263">
+              <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JoinRoomResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/communication/responses/JoinRoomResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+              <folding>
+                <element signature="e#187#188#0" expanded="true" />
+                <element signature="e#223#224#0" expanded="true" />
+                <element signature="e#1135#1136#0" expanded="true" />
+                <element signature="e#1164#1165#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,21 +59,45 @@
       <file leaf-file-name="Header.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/communication/Header.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+            <state relative-caret-position="135">
+              <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MessageTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tests/MessageTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="204" column="81" selection-start-line="204" selection-start-column="81" selection-end-line="204" selection-end-column="81" />
+            <state relative-caret-position="129">
+              <caret line="149" selection-start-line="149" selection-end-line="149" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7007#7015#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JoinRoomMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/communication/messages/JoinRoomMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="e#151#152#0" expanded="true" />
+                <element signature="e#187#188#0" expanded="true" />
+                <element signature="e#519#520#0" expanded="true" />
+                <element signature="e#548#549#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterResponse.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/communication/responses/RegisterResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -106,11 +118,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/communication/responses/Response.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="LoginResponse.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/communication/responses/LoginResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-26">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="24">
+              <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
               <folding>
                 <element signature="e#1066#1067#0" expanded="true" />
                 <element signature="e#1095#1096#0" expanded="true" />
@@ -121,11 +142,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/communication/responses/Response.java">
+      <file leaf-file-name="RegisterMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/communication/messages/RegisterMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+            <state relative-caret-position="284">
+              <caret line="46" column="1" selection-end-line="47" />
             </state>
           </provider>
         </entry>
@@ -166,16 +187,18 @@
         <option value="$PROJECT_DIR$/src/communication/Message.java" />
         <option value="$PROJECT_DIR$/src/communication/responses/ErrorResponse.java" />
         <option value="$PROJECT_DIR$/src/communication/messages/LoginMessage.java" />
-        <option value="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" />
         <option value="$PROJECT_DIR$/src/cli/Peer.java" />
         <option value="$PROJECT_DIR$/src/communication/messages/RegisterMessage.java" />
-        <option value="$PROJECT_DIR$/src/communication/responses/RegisterResponse.java" />
-        <option value="$PROJECT_DIR$/src/communication/Header.java" />
         <option value="$PROJECT_DIR$/src/communication/messages/ListRoomsMessage.java" />
-        <option value="$PROJECT_DIR$/src/communication/messages/Message.java" />
         <option value="$PROJECT_DIR$/src/communication/responses/Response.java" />
         <option value="$PROJECT_DIR$/src/communication/responses/ListRoomsResponse.java" />
+        <option value="$PROJECT_DIR$/src/communication/Header.java" />
+        <option value="$PROJECT_DIR$/src/communication/messages/JoinRoomMessage.java" />
+        <option value="$PROJECT_DIR$/src/communication/messages/Message.java" />
+        <option value="$PROJECT_DIR$/src/communication/responses/JoinRoomResponse.java" />
+        <option value="$PROJECT_DIR$/src/communication/responses/LoginResponse.java" />
         <option value="$PROJECT_DIR$/src/tests/MessageTests.java" />
+        <option value="$PROJECT_DIR$/src/communication/responses/RegisterResponse.java" />
       </list>
     </option>
   </component>
@@ -285,7 +308,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MessageTests.test_login_messages">
+  <component name="RunManager" selected="JUnit.MessageTests">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Launcher" />
       <module name="StopGame" />
@@ -306,6 +329,29 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.GameLogicTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="MessageTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StopGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.MessageTests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -382,12 +428,14 @@
       <item itemvalue="Application.Launcher" />
       <item itemvalue="JUnit.GameLogicTests" />
       <item itemvalue="JUnit.MessageTests.test_login_messages" />
+      <item itemvalue="JUnit.MessageTests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MessageTests" />
+        <item itemvalue="JUnit.GameLogicTests" />
         <item itemvalue="JUnit.MessageTests.test_login_messages" />
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="JUnit.GameLogicTests" />
       </list>
     </recent_temporary>
   </component>
@@ -404,44 +452,44 @@
       <workItem from="1526494620545" duration="962000" />
       <workItem from="1526638322123" duration="18692000" />
       <workItem from="1526823347239" duration="2051000" />
-      <workItem from="1526833804705" duration="4411000" />
+      <workItem from="1526833804705" duration="6238000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MessageTests_test_login_messages - 2018.05.18 at 19h 55m 49s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 26m 44s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.18 at 19h 59m 23s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 27m 01s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 14h 41m 09s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 29m 44s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 14h 46m 55s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 30m 00s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 14h 51m 58s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 30m 09s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 22h 02m 23s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 31m 34s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 22h 46m 46s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 31m 43s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 22h 56m 20s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 32m 04s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 22h 58m 57s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 32m 57s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MessageTests_test_login_messages - 2018.05.20 at 23h 06m 21s.xml">
-      <configuration name="MessageTests.test_login_messages" configurationId="JUnit" />
+    <history-entry file="MessageTests - 2018.05.21 at 10h 33m 37s.xml">
+      <configuration name="MessageTests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26116000" />
+    <option name="totallyTimeSpent" value="27943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="729" extended-state="0" />
@@ -490,25 +538,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/communication/messages/ListRoomsMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-          <folding>
-            <element signature="e#152#153#0" expanded="true" />
-            <element signature="e#185#186#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/responses/RegisterResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/communication/responses/Response.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -751,20 +780,6 @@
     <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/messages/RegisterMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="46" column="1" selection-start-line="46" selection-start-column="1" selection-end-line="46" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/responses/RegisterResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -793,20 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/Header.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/messages/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/communication/messages/LoginMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -826,23 +827,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/responses/LoginResponse.java">
+    <entry file="file://$PROJECT_DIR$/src/communication/messages/RegisterMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-          <folding>
-            <element signature="e#1066#1067#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1133#1134#0" expanded="true" />
-            <element signature="e#1167#1168#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="284">
+          <caret line="46" column="1" selection-end-line="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/communication/responses/Response.java">
+    <entry file="file://$PROJECT_DIR$/src/communication/Header.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="135">
+          <caret line="9" column="51" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/messages/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -860,14 +862,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/responses/JoinRoomResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+          <folding>
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#223#224#0" expanded="true" />
+            <element signature="e#1135#1136#0" expanded="true" />
+            <element signature="e#1164#1165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/responses/LoginResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+          <folding>
+            <element signature="e#1066#1067#0" expanded="true" />
+            <element signature="e#1095#1096#0" expanded="true" />
+            <element signature="e#1133#1134#0" expanded="true" />
+            <element signature="e#1167#1168#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/responses/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/messages/JoinRoomMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#151#152#0" expanded="true" />
+            <element signature="e#187#188#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#548#549#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tests/MessageTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="204" column="81" selection-start-line="204" selection-start-column="81" selection-end-line="204" selection-end-column="81" />
+        <state relative-caret-position="129">
+          <caret line="149" selection-start-line="149" selection-end-line="149" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7007#7015#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/communication/responses/RegisterResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
         </state>
       </provider>
     </entry>
