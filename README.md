@@ -86,4 +86,19 @@ if(received_response instanceof RegisterResponse){
 
 ```
 
-...
+### LISTROOMS
+
+```java
+
+/* Create listrooms response */ 
+String response = new ListRoomsResponse(result, rooms).toString();
+
+/* Interpret login message */
+Response received_response = Response.parse(response);
+
+if(received_response instanceof ListRoomsResponse){
+  String result = ((ListRoomsResponse) received_response).getResult();
+  ArrayList<String> rooms = ((ListRoomsResponse) received_response).getRooms();
+}
+
+```
