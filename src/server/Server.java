@@ -1,18 +1,19 @@
 package server;
 
-import com.oracle.tools.packager.IOUtils;
-
-import javax.net.ssl.*;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 import java.io.*;
-import java.net.URL;
 
-public class Server {
+
+public class Server implements Runnable {
     private static SSLSocket client;  //cuncurrent hash map!
     private static SSLServerSocket serverSocket = null;
     private static SSLServerSocketFactory factory = null;
     private PrintWriter out;
     private BufferedReader in;
     private static int port;
+    private Thread thread;
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
@@ -38,8 +39,12 @@ public class Server {
         this.port = port;
 
 
-       this.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        this.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
+    }
+
+    @Override
+    public void run() {
         try {
             this.serverSocket = (SSLServerSocket) this.factory.createServerSocket(2000);
             this.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
@@ -67,4 +72,10 @@ public class Server {
         }
     }
 
+    public void start () {
+        if (thread == null) {
+            thread = new Thread (this, "server");
+            thread.start ();
+        }
+    }
 }

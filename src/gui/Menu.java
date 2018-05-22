@@ -3,7 +3,6 @@ package gui;
 
 import gui.utils.ImagePanel;
 import gui.utils.Resizer;
-import server.Server;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,6 +27,7 @@ public class Menu extends Page {
 
     private JButton btnLogin;
     private JButton btnLoginFacebook;
+    private JButton btnCreateServer;
     private JButton btnExit;
     private JTextField usernameText;
     private JPasswordField passwordText;
@@ -69,7 +69,6 @@ public class Menu extends Page {
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                PageManager.getInstance().push_page(new ServerPage());
 
                 if((usernameText.getText() != "") & (usernameText.getForeground() != Color.GRAY)){
 
@@ -94,11 +93,15 @@ public class Menu extends Page {
         btnLoginFacebook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                try {
-                    Server server = new Server(8080);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            }
+        });
+
+        // Create Server
+        btnCreateServer = new JButton("Create Server");
+        btnCreateServer.setForeground(Color.BLACK);
+        btnCreateServer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                PageManager.getInstance().push_page(new ServerPage());
             }
         });
 
@@ -107,12 +110,7 @@ public class Menu extends Page {
         btnExit = new JButton("Quit");
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-
-                String msg = "Are you sure you want to quit?";
-                int res = JOptionPane.showConfirmDialog(rootPane, msg);
-
-                if (res == JOptionPane.YES_OPTION)
-                    PageManager.getInstance().pop_page();
+                PageManager.getInstance().pop_page();
             }
         });
 
@@ -185,6 +183,10 @@ public class Menu extends Page {
         btnLoginFacebook.setBounds(400*ratio, 420*ratio, 224*ratio, 50*ratio);
         btnLoginFacebook.setFont(font);
         getContentPane().add(btnLoginFacebook);
+
+        btnCreateServer.setBounds(400*ratio, 480*ratio, 224*ratio, 50*ratio);
+        btnCreateServer.setFont(font);
+        getContentPane().add(btnCreateServer);
 
 
         btnExit.setBounds(400*ratio, 540*ratio, 224*ratio, 50*ratio);

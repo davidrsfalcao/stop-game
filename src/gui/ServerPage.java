@@ -2,6 +2,7 @@ package gui;
 
 import gui.utils.ImagePanel;
 import gui.utils.Resizer;
+import server.Server;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,10 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class ServerPage extends Page {
     private JButton btnExit;
+    private JTextField serverMessage;
 
+
+    private Server server;
     /**
      * Constructor
      */
@@ -29,7 +35,7 @@ public class ServerPage extends Page {
         Resizer a = new Resizer();
         myImage = a.resize(myImage, WIDTH*ratio,HEIGHT*ratio);
         setContentPane(new ImagePanel(myImage));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(null);
 
         setUpButtons();
@@ -57,6 +63,20 @@ public class ServerPage extends Page {
             }
         });
 
+        serverMessage = new JTextField();
+        serverMessage.setHorizontalAlignment(JTextField.CENTER);
+        serverMessage.setForeground(Color.WHITE);
+        serverMessage.setBackground(Color.BLACK);
+        InetAddress IP= null;
+        try {
+            IP = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        serverMessage.setEditable(false);
+        serverMessage.setText("Serving at " + IP.getHostAddress());
+
+
     }
 
 
@@ -71,5 +91,28 @@ public class ServerPage extends Page {
         btnExit.setFont(font);
         getContentPane().add(btnExit);
 
+
+        Font font1 = new Font("Arial", Font.PLAIN, 30*ratio);
+        serverMessage.setBounds(300*ratio, 240*ratio, 424*ratio, 100*ratio);
+        serverMessage.setFont(font1);
+        getContentPane().add(serverMessage);
+
+
+    }
+
+    @Override
+    public void start(){
+        setSize(WIDTH*ratio, HEIGHT*ratio);
+
+        setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2
+                - getSize().height / 2);
+
+        setVisible(true);
+        try {
+            server = new Server(8080);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        server.start();
     }
 }

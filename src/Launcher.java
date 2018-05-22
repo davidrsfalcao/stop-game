@@ -40,7 +40,7 @@ public class Launcher {
                 try {
                     InetAddress IP=InetAddress.getLocalHost();
                     System.out.println(IP.getHostAddress());
-                    Peer peer = new Peer(8080, IP.getHostAddress());
+                    Peer peer = new Peer(8000, IP.getHostAddress());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
