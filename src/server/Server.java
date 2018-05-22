@@ -74,8 +74,12 @@ public class Server implements Runnable {
 
     public void start () {
         if (thread == null) {
-            thread = new Thread (this, "server");
+            thread = new Thread (this, "server-game-stop");
             thread.start ();
         }
+    }
+
+    public Thread getThread() {
+        return thread;
     }
 }

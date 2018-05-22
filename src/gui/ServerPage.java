@@ -41,6 +41,13 @@ public class ServerPage extends Page {
         setUpButtons();
         addButtons();
 
+        try {
+            server = new Server(8080);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        server.start();
+
 
     }
 
@@ -100,19 +107,10 @@ public class ServerPage extends Page {
 
     }
 
+
     @Override
-    public void start(){
-        setSize(WIDTH*ratio, HEIGHT*ratio);
+    public void dispose(){
+        server.getThread().interrupt();
 
-        setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2
-                - getSize().height / 2);
-
-        setVisible(true);
-        try {
-            server = new Server(8080);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        server.start();
     }
 }
