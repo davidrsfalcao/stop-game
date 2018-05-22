@@ -1,21 +1,19 @@
 package gui;
 
 
+import gui.utils.ImagePanel;
+import gui.utils.Resizer;
 import server.Server;
-
-import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.io.IOException;
-
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Window of menu initial
@@ -24,14 +22,9 @@ import java.awt.image.BufferedImage;
  * @author davidfalcao
  *
  */
-public class Menu extends JFrame {
+public class Menu extends Page {
 
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 1024;
-    private static final int HEIGHT = 700;
-    private int ratio = 1;
-    private Dimension dim;
-
 
     private JButton btnLogin;
     private JButton btnLoginFacebook;
@@ -43,24 +36,19 @@ public class Menu extends JFrame {
      * Constructor
      */
     public Menu(){
-        setResizable(false);
-        setTitle("STOP game");
-        pack();
+        super();
         BufferedImage myImage = null;
         try {
             myImage = ImageIO.read(this.getClass().getResource("res/Menu.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dim = Toolkit.getDefaultToolkit().getScreenSize();
-        calculateScreenRatio();
 
         Resizer a = new Resizer();
         myImage = a.resize(myImage, WIDTH*ratio,HEIGHT*ratio);
         setContentPane(new ImagePanel(myImage));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
 
         setUpButtons();
         addButtons();
@@ -81,6 +69,7 @@ public class Menu extends JFrame {
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
+                PageManager.getInstance().push_page(new ServerPage());
 
                 if((usernameText.getText() != "") & (usernameText.getForeground() != Color.GRAY)){
 
@@ -123,7 +112,7 @@ public class Menu extends JFrame {
                 int res = JOptionPane.showConfirmDialog(rootPane, msg);
 
                 if (res == JOptionPane.YES_OPTION)
-                    System.exit(0);
+                    PageManager.getInstance().pop_page();
             }
         });
 
@@ -204,23 +193,6 @@ public class Menu extends JFrame {
 
     }
 
-    /**
-     * Start the window
-     *
-     */
-    public void start() {
-        setSize(WIDTH*ratio, HEIGHT*ratio);
-
-        setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2
-                - getSize().height / 2);
-
-        setVisible(true);
-
-
-
-    }
-
-
 
     /**
      * Initialization of the game
@@ -230,24 +202,6 @@ public class Menu extends JFrame {
         setVisible(false);
         this.dispose();
     }
-
-
-    /**
-     * Calculate window ratio
-     *
-     */
-    public void calculateScreenRatio(){
-
-       int ratio_x =  (int) dim.getWidth() / WIDTH;
-       int ratio_y = (int) dim.getHeight() / HEIGHT;
-
-       ratio = Math.min(ratio_x, ratio_y);
-
-       if(ratio < 1)
-           ratio =1;
-
-    }
-
 
 
 }

@@ -1,9 +1,7 @@
-package gui;
+package gui.utils;
 
-import java.awt.Graphics;
-import java.awt.Image;
-
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Allow to paint a Jframe
@@ -11,7 +9,7 @@ import javax.swing.JComponent;
  * @author davidfalcao
  *
  */
-class ImagePanel extends JComponent {
+public class ImagePanel extends JComponent {
     /**
      *
      */

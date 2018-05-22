@@ -1,6 +1,6 @@
-
 import cli.Peer;
 import gui.Menu;
+import gui.PageManager;
 import server.Server;
 
 import java.io.IOException;
@@ -9,9 +9,12 @@ import java.util.Scanner;
 
 public class Launcher {
 
+
     public static void main(String[] args){
-        Menu game = new Menu();
-        game.start();
+
+
+        PageManager pages = PageManager.getInstance();
+        pages.push_page(new Menu());
 
         System.out.println("Testing:\n");
         System.out.println("1: Server");
@@ -46,7 +49,6 @@ public class Launcher {
                 break;
 
         }
-
-
     }
+
 }

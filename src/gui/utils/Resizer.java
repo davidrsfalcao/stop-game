@@ -1,4 +1,4 @@
-package gui;
+package gui.utils;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
