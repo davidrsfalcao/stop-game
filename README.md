@@ -50,6 +50,23 @@ if(received_message instanceof ListRoomsMessage){
 
 ```
 
+### JOIN
+
+
+```java
+
+/* Create join message */ 
+String message = new JoinRoomMessage(room_id).toString();
+
+/* Interpret join message */
+Message received_message = Message.parse(message);
+
+if(received_message instanceof JoinRoomMessage){
+    String room_id = ((JoinRoomMessage) received_message).getRoomId();
+}
+
+```
+
 # Responses
 
 ### LOGIN
@@ -102,3 +119,22 @@ if(received_response instanceof ListRoomsResponse){
 }
 
 ```
+
+### JOIN
+
+```java
+
+/* Create join response */ 
+String response = new JoinRoomResponse(result).toString();
+
+/* Interpret join message */
+Response received_response = Response.parse(response);
+
+if(received_response instanceof JoinRoomResponse){
+  String result = ((JoinRoomResponse) received_response).getResult();
+}
+
+```
+
+
+
