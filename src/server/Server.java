@@ -6,9 +6,7 @@ import objects.Room;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
@@ -26,10 +24,18 @@ public class Server {
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
     
-    public Server(int port) {
-    	
-    	String file = this.getClass().getResource("server.keys").getFile();
-    	System.setProperty("javax.net.ssl.keyStore", file);
+    public Server(int port) throws IOException {
+
+        InputStream file = getClass().getResourceAsStream("server.keys");
+        byte[] buffer = new byte[file.available()];
+        file.read(buffer);
+
+        File targetFile = new File("ss.keys");
+        OutputStream outStream = new FileOutputStream(targetFile);
+        outStream.write(buffer);
+
+    	//String file = this.getClass().getResource("server.keys").getFile();
+    	System.setProperty("javax.net.ssl.keyStore", targetFile.getAbsolutePath());
         System.setProperty("javax.net.ssl.keyStorePassword", "123456");
         
         Server.port = port;

@@ -1,8 +1,8 @@
 package game;
 
 import database.Dictionary;
+import database.Dictionary.Category;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,9 +10,10 @@ public class GameLogic {
 
     private ArrayList<Character> letters = new ArrayList<Character>();
 
-    public GameLogic() throws IOException {
+    public GameLogic(){
 
-        Dictionary.loadAllWords();
+        /* force dictionary instance */
+        Dictionary.getInstance();
         init_letters();
 
     }
@@ -26,14 +27,14 @@ public class GameLogic {
 
     }
 
-    public boolean word_is_valid(String word, Dictionary.Category category, char letter){
+    public boolean word_is_valid(String word, Category category, char letter){
         if(letter != word.toLowerCase().substring(0,1).charAt(0))
             return false;
 
-        return Dictionary.checkCategory(word, category, letter);
+        return Dictionary.getInstance().checkCategory(word.toLowerCase(), category, letter);
     }
 
-    public int word_score(String word, Dictionary.Category category, String[] other_word, char letter){
+    public int word_score(String word, Category category, String[] other_words, char letter){
 
         if(!word_is_valid(word, category, letter))
             return 0;
@@ -41,7 +42,7 @@ public class GameLogic {
 
        ArrayList<String> valid_words = new ArrayList<String>();
 
-        for( String wd : other_word){
+        for( String wd : other_words){
 
             if (word_is_valid(wd, category, letter)){
                 valid_words.add(wd);

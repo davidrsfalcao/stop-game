@@ -29,7 +29,11 @@ public class Launcher {
         switch (a){
             case 1:
                 System.out.println("SERVER");
-                Server server = new Server(8080);
+                try {
+                    Server server = new Server(8080);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                 System.out.println("PEER");

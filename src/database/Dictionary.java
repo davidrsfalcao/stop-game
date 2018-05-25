@@ -5,7 +5,27 @@ import java.util.HashMap;
 
 public class Dictionary {
 
-    private static final String wordListDirectory = "src" + File.separator + "res" + File.separator;
+    /* Singleton */
+    private static Dictionary instance = new Dictionary();
+
+    private Dictionary(){
+        try {
+            loadAllWords();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Dictionary getInstance() {
+        if(instance == null) {
+            instance = new Dictionary();
+        }
+        return instance;
+    }
+
+
+    /* TODO: change this to be used into jar*/
+    private static final String wordListDirectory = "/Users/davidfalcao/Documents/GitHub/GameStop/src/database/res/";
 
 
     public enum Category{
@@ -13,10 +33,10 @@ public class Dictionary {
     }
 
 
-    private static HashMap<String, Category> wordList = new HashMap<String, Category>();
+    private HashMap<String, Category> wordList = new HashMap<String, Category>();
 
-    //Starts the dictionary - should be called during server setup
-    public static void loadAllWords() throws IOException {
+    /* TODO: change this to be used into jar*/
+    public void loadAllWords() throws IOException {
         loadWords("Countries.txt", Category.country);
         loadWords("Capitals.txt", Category.capital);
         loadWords("Names.txt", Category.name);
@@ -25,11 +45,13 @@ public class Dictionary {
         loadWords("Animals.txt", Category.animal);
     }
 
-    private static void loadWords(String fileName, Category cat) throws IOException {
+    private void loadWords(String fileName, Category cat) throws IOException {
         File file = new File(wordListDirectory + fileName);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
         String readWord;
+
+        //InputStream in = getClass().getResourceAsStream("res/"+fileName);
 
         while((readWord = br.readLine()) != null)
             wordList.put(readWord.toLowerCase(), cat);
@@ -37,7 +59,7 @@ public class Dictionary {
         br.close();
     }
 
-    public static boolean checkCategory(String word, Category cat, char first) {
+    public boolean checkCategory(String word, Category cat, char first) {
         if(!wordList.containsKey(word))
             return false;
         if(wordList.get(word) != cat)
