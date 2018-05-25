@@ -67,6 +67,24 @@ if(received_message instanceof JoinRoomMessage){
 
 ```
 
+
+### CREATEROOM
+
+
+```java
+
+/* Create create message */ 
+String message = new CreateRoomMessage(room_name).toString();
+
+/* Interpret create message */
+Message received_message = Message.parse(message);
+
+if(received_message instanceof CreateRoomMessage){
+    String room_name = ((CreateRoomMessage) received_message).getRoomName();
+}
+
+```
+
 # Responses
 
 ### LOGIN
@@ -132,6 +150,22 @@ Response received_response = Response.parse(response);
 
 if(received_response instanceof JoinRoomResponse){
   String result = ((JoinRoomResponse) received_response).getResult();
+}
+
+```
+
+### CREATEROOM
+
+```java
+
+/* Create create response */ 
+String response = new CreateRoomResponse(result).toString();
+
+/* Interpret create message */
+Response received_response = Response.parse(response);
+
+if(received_response instanceof CreateRoomResponse){
+  String result = ((CreateRoomResponse) received_response).getResult();
 }
 
 ```
