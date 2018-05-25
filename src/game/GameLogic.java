@@ -1,26 +1,20 @@
 package game;
 
-import database.Database;
+import database.Dictionary;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class GameLogic {
 
-    private Database db;
-
     private ArrayList<Character> letters = new ArrayList<Character>();
 
-    public GameLogic(){
+    public GameLogic() throws IOException {
 
-        db = new Database();
+        Dictionary.loadAllWords();
         init_letters();
 
-    }
-
-    public Database getDb(){
-        return db;
     }
 
     private void init_letters(){
@@ -32,25 +26,14 @@ public class GameLogic {
 
     }
 
-    public boolean word_is_valid(String word, String category, char letter){
+    public boolean word_is_valid(String word, Dictionary.Category category, char letter){
+        if(letter != word.toLowerCase().substring(0,1).charAt(0))
+            return false;
 
-        HashMap<String, String> words = db.getWords();
-
-        if(words.containsKey(word.toLowerCase())){
-
-            String cat = words.get(word.toLowerCase());
-            char first_letter = word.toLowerCase().substring(0, 1).charAt(0);;
-
-            if(cat.equals(category) && (first_letter ==letter)){
-                return true;
-            }
-
-        }
-
-        return false;
+        return Dictionary.checkCategory(word, category, letter);
     }
 
-    public int word_score(String word, String category, String[] other_word, char letter){
+    public int word_score(String word, Dictionary.Category category, String[] other_word, char letter){
 
         if(!word_is_valid(word, category, letter))
             return 0;
