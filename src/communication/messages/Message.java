@@ -31,6 +31,9 @@ public abstract class Message implements Header {
             case JOINROOM:
                 return new JoinRoomMessage(args);
 
+            case CREATEROOM:
+                return new CreateRoomMessage(args);
+
         }
 
         return new ErrorMessage("Invalid message");

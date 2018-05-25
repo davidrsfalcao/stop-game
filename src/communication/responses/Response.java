@@ -30,6 +30,9 @@ public abstract class Response implements Header {
 
             case JOINROOM:
                 return new JoinRoomResponse(args);
+
+            case CREATEROOM:
+                return new CreateRoomResponse(args);
         }
 
         return new ErrorResponse("Invalid response type");

@@ -1,14 +1,14 @@
 package communication.messages;
 
-public class JoinRoomMessage extends Message {
+public class CreateRoomMessage extends Message {
 
     private String room_name;
 
-    public JoinRoomMessage(String room_name) {
+    public CreateRoomMessage(String room_name) {
         this.room_name = room_name;
     }
 
-    public JoinRoomMessage(String[] args){
+    public CreateRoomMessage(String[] args){
 
         if(args.length != 2){
             this.type = ERROR;
@@ -20,12 +20,12 @@ public class JoinRoomMessage extends Message {
         if(args[1].equals("")){
             this.type = ERROR;
         }
-        else this.type  = JOINROOM;
+        else this.type  = CREATEROOM;
     }
 
     @Override
     public String toString() {
-        return JOINROOM + SEPARATOR + room_name;
+        return CREATEROOM + SEPARATOR + room_name;
     }
 
     public String getRoomName() {

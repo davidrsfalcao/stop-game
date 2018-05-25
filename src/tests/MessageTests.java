@@ -203,11 +203,11 @@ public class MessageTests {
     @Test
     public void test_join_room_messages(){
 
-        String room_id = "4732647";
+        String room_name = "4732647";
 
         /* Testar criar mensagem*/
-        String expected_message = Header.JOINROOM + Header.SEPARATOR + room_id;
-        String message = new JoinRoomMessage(room_id).toString();
+        String expected_message = Header.JOINROOM + Header.SEPARATOR + room_name;
+        String message = new JoinRoomMessage(room_name).toString();
 
         assertEquals(expected_message, message);
 
@@ -215,7 +215,7 @@ public class MessageTests {
         Message received_message = Message.parse(message);
 
         assert(received_message instanceof JoinRoomMessage);
-        assertEquals(room_id, ((JoinRoomMessage) received_message).getRoomId());
+        assertEquals(room_name, ((JoinRoomMessage) received_message).getRoomName());
 
         /* Testar enviar mensagem com campos vazios */
         String expected_message1 = Header.JOINROOM + Header.SEPARATOR + "";
@@ -274,6 +274,83 @@ public class MessageTests {
         assert(received_response2 instanceof JoinRoomResponse);
         assertEquals(Header.JOINROOM, received_response2.getType());
         assertEquals(result1, ((JoinRoomResponse) received_response2).getResult());
+
+    }
+
+    @Test
+    public void test_create_room_messages(){
+
+        String room_name = "4732647";
+
+        /* Testar criar mensagem*/
+        String expected_message = Header.CREATEROOM + Header.SEPARATOR + room_name;
+        String message = new CreateRoomMessage(room_name).toString();
+
+        assertEquals(expected_message, message);
+
+        /* Testar interpretar mensagem*/
+        Message received_message = Message.parse(message);
+
+        assert(received_message instanceof CreateRoomMessage);
+        assertEquals(room_name, ((CreateRoomMessage) received_message).getRoomName());
+
+        /* Testar enviar mensagem com campos vazios */
+        String expected_message1 = Header.CREATEROOM + Header.SEPARATOR + "";
+        String message1 = new CreateRoomMessage("").toString();
+
+        assertEquals(expected_message1, message1);
+
+        /* Testar interpretar mensagem com campos vazios */
+        Message received_message1 = Message.parse(message1);
+
+        assert(received_message1 instanceof CreateRoomMessage);
+        assertEquals(Header.ERROR, received_message1.getType());
+
+    }
+
+    @Test
+    public void test_create_room_responses(){
+
+        String result = Header.SUCCESS;
+
+        /* Testar criar resposta*/
+        String expected_message = Header.CREATEROOM + Header.SEPARATOR + result;
+        String response = new CreateRoomResponse(result).toString();
+
+        assertEquals(expected_message, response);
+
+        /* Testar interpretar resposta*/
+        Response received_response = Response.parse(response);
+
+        assert(received_response instanceof CreateRoomResponse);
+        assertEquals(result, ((CreateRoomResponse) received_response).getResult());
+
+        /* Testar enviar resposta com campos vazios */
+        String expected_response1 = Header.CREATEROOM + Header.SEPARATOR + "";
+        String response1 = new CreateRoomResponse("").toString();
+
+        assertEquals(expected_response1, response1);
+
+        /* Testar interpretar resposta com campos vazios */
+        Response received_response1 = Response.parse(response1);
+
+        assert(received_response1 instanceof CreateRoomResponse);
+        assertEquals(Header.ERROR, received_response1.getType());
+
+        String result1 = Header.FAILURE;
+
+        /* Testar criar resposta failure*/
+        String expected_message2 = Header.CREATEROOM + Header.SEPARATOR + result1;
+        String response2 = new CreateRoomResponse(result1).toString();
+
+        assertEquals(expected_message2, response2);
+
+        /* Testar interpretar resposta failure */
+        Response received_response2 = Response.parse(response2);
+
+        assert(received_response2 instanceof CreateRoomResponse);
+        assertEquals(Header.CREATEROOM, received_response2.getType());
+        assertEquals(result1, ((CreateRoomResponse) received_response2).getResult());
 
     }
 
