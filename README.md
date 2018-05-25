@@ -56,13 +56,13 @@ if(received_message instanceof ListRoomsMessage){
 ```java
 
 /* Create join message */ 
-String message = new JoinRoomMessage(room_id).toString();
+String message = new JoinRoomMessage(room_name).toString();
 
 /* Interpret join message */
 Message received_message = Message.parse(message);
 
 if(received_message instanceof JoinRoomMessage){
-    String room_id = ((JoinRoomMessage) received_message).getRoomId();
+    String room_name = ((JoinRoomMessage) received_message).getRoomName();
 }
 
 ```
