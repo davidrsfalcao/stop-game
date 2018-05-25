@@ -50,7 +50,7 @@ if(received_message instanceof ListRoomsMessage){
 
 ```
 
-### JOIN
+### JOINROOM
 
 
 ```java
@@ -63,6 +63,24 @@ Message received_message = Message.parse(message);
 
 if(received_message instanceof JoinRoomMessage){
     String room_name = ((JoinRoomMessage) received_message).getRoomName();
+}
+
+```
+
+
+### CREATEROOM
+
+
+```java
+
+/* Create create message */ 
+String message = new CreateRoomMessage(room_name).toString();
+
+/* Interpret create message */
+Message received_message = Message.parse(message);
+
+if(received_message instanceof CreateRoomMessage){
+    String room_name = ((CreateRoomMessage) received_message).getRoomName();
 }
 
 ```
@@ -120,7 +138,7 @@ if(received_response instanceof ListRoomsResponse){
 
 ```
 
-### JOIN
+### JOINROOM
 
 ```java
 
@@ -132,6 +150,22 @@ Response received_response = Response.parse(response);
 
 if(received_response instanceof JoinRoomResponse){
   String result = ((JoinRoomResponse) received_response).getResult();
+}
+
+```
+
+### CREATEROOM
+
+```java
+
+/* Create create response */ 
+String response = new CreateRoomResponse(result).toString();
+
+/* Interpret create message */
+Response received_response = Response.parse(response);
+
+if(received_response instanceof CreateRoomResponse){
+  String result = ((CreateRoomResponse) received_response).getResult();
 }
 
 ```
