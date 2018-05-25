@@ -29,18 +29,14 @@ public class Launcher {
         switch (a){
             case 1:
                 System.out.println("SERVER");
-                try {
-                    Server server = new Server(8080);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Server server = new Server(8080);
                 break;
             case 2:
                 System.out.println("PEER");
                 try {
                     InetAddress IP=InetAddress.getLocalHost();
                     System.out.println(IP.getHostAddress());
-                    Peer peer = new Peer(8000, IP.getHostAddress());
+                    Peer peer = new Peer(8080, IP.getHostAddress());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

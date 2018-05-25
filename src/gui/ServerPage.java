@@ -41,13 +41,14 @@ public class ServerPage extends Page {
         setUpButtons();
         addButtons();
 
+        /*
         try {
             server = new Server(8080);
         } catch (IOException e) {
             e.printStackTrace();
         }
         server.start();
-
+        */
 
     }
 
@@ -110,7 +111,7 @@ public class ServerPage extends Page {
 
     @Override
     public void dispose(){
-        server.getThread().interrupt();
+        //server.getThread().interrupt();
 
     }
 }
