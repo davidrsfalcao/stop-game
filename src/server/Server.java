@@ -1,85 +1,103 @@
 package server;
 
+import listeners.AcceptPeers;
+import objects.Room;
+
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.concurrent.ConcurrentHashMap;
 
-
-public class Server implements Runnable {
-    private static SSLSocket client;  //cuncurrent hash map!
+public class Server {
+    private static Server server;
     private static SSLServerSocket serverSocket = null;
     private static SSLServerSocketFactory factory = null;
-    private PrintWriter out;
-    private BufferedReader in;
+    public PrintWriter out;
+    public BufferedReader in;
     private static int port;
-    private Thread thread;
+
+    public static ConcurrentHashMap<Integer,SSLSocket> peers_id;
+    public static ConcurrentHashMap<SSLSocket,Integer> peers_socket;
+    public static ConcurrentHashMap<Integer,Room> rooms; //DAR NOME
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
-
-    public Server(int port) throws IOException {
-
-        //File file = new File("sss.keys");
-        InputStream file = getClass().getResourceAsStream("server.keys");
-        byte[] buffer = new byte[file.available()];
-        file.read(buffer);
-
-        File targetFile = new File("sss.keys");
-        OutputStream outStream = new FileOutputStream(targetFile);
-        outStream.write(buffer);
-
-
-        System.setProperty("javax.net.ssl.keyStore", targetFile.getAbsolutePath());
+    
+    public Server(int port) {
+    	
+    	String file = this.getClass().getResource("server.keys").getFile();
+    	System.setProperty("javax.net.ssl.keyStore", file);
         System.setProperty("javax.net.ssl.keyStorePassword", "123456");
-//		System.setProperty("javax.net.ssl.trustStore", "../trustStore");
-//		System.setProperty("javax.net.ssl.trustStorePassword", "123456");
-
-
-        this.port = port;
-
-
-        this.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-
-    }
-
-    @Override
-    public void run() {
+        
+        Server.port = port;
+        Server.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        
         try {
-            this.serverSocket = (SSLServerSocket) this.factory.createServerSocket(2000);
-            this.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
-            this.serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
-
-            while (true) {
-
-                try {
-
-                    this.client = (SSLSocket) this.serverSocket.accept();
-                    //new Thread(new ServerWorker(socket)).start();
-                    System.out.println("Server up!");
-
-//			        PrintWriter pw = new PrintWriter(this.socket.getOutputStream());
-                    this.in = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-                    System.out.println(this.in.readLine());
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
+            Server.serverSocket = (SSLServerSocket) Server.factory.createServerSocket(port);
+            Server.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
+            Server.serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
         } catch (IOException e) {
             e.printStackTrace();
+        }    	
+
+        AcceptPeers accept_thread = new AcceptPeers();
+        	new Thread(accept_thread).start();
+        /*CreateRoom create_thread = new CreateRoom();
+        	new Thread(create_thread).start();
+        JoinRoom join_thread = new JoinRoom();
+        	new Thread(join_thread).start();
+        ShowRooms show_thread = new ShowRooms();
+        	new Thread(show_thread).start();*/
+        
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        server = new Server(Integer.parseInt(args[0]));
+
+    	if (!server.validArgs(args)) {
+            System.out.println("java Server <Port>");
+            return;
         }
     }
 
-    public void start () {
-        if (thread == null) {
-            thread = new Thread (this, "server-game-stop");
-            thread.start ();
+    public Boolean validArgs(String[] args) {
+        if (args.length != 1) {
+            return false;
         }
+
+        return true;
+    }
+    
+    public static Server getInstance() {
+    	return server;
     }
 
-    public Thread getThread() {
-        return thread;
-    }
+	public static SSLServerSocket getServerSocket() {
+		return serverSocket;
+	}
+
+	public static void setServerSocket(SSLServerSocket serverSocket) {
+		Server.serverSocket = serverSocket;
+	}
+
+	public static ConcurrentHashMap<Integer,SSLSocket> getPeers() {
+		return peers_id;
+	}
+
+	public static void setPeers(ConcurrentHashMap<Integer,SSLSocket> peers) {
+		Server.peers_id = peers;
+	}
+
+	public static int getPort() {
+		return port;
+	}
+
+	public static void setPort(int port) {
+		Server.port = port;
+	}
+	
 }

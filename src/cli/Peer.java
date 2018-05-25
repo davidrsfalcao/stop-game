@@ -47,7 +47,7 @@ public class Peer {
         this.factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 
         try {
-            this.socket = (SSLSocket) this.factory.createSocket(this.ip, 2000);
+            this.socket = (SSLSocket) this.factory.createSocket(ip, port);
             this.socket.setEnabledProtocols(ENC_PROTOCOLS);
             this.socket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
 //			socket.setNeedClientAuth(true);
