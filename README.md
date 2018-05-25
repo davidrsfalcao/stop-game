@@ -50,7 +50,7 @@ if(received_message instanceof ListRoomsMessage){
 
 ```
 
-### JOIN
+### JOINROOM
 
 
 ```java
@@ -120,7 +120,7 @@ if(received_response instanceof ListRoomsResponse){
 
 ```
 
-### JOIN
+### JOINROOM
 
 ```java
 
