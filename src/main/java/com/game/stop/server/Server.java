@@ -6,13 +6,13 @@ import com.game.stop.listeners.AcceptPeers;
 import com.game.stop.listeners.CreateRoom;
 import com.game.stop.listeners.JoinRoom;
 import com.game.stop.listeners.ShowRooms;
+import com.game.stop.objects.Room;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.io.*;
 
 public class Server {
     private static Server server;
-    private static SSLSocket client;
     private static SSLServerSocket serverSocket = null;
     private static SSLServerSocketFactory factory = null;
     public PrintWriter out;
@@ -21,7 +21,7 @@ public class Server {
 
     public static ConcurrentHashMap<Integer,SSLSocket> peers_id;
     public static ConcurrentHashMap<SSLSocket,Integer> peers_socket;
-    public static ConcurrentHashMap<Integer,String[]> rooms; // String[0] = id + ip + port; String[1] ≃ id dos peers que se juntaram
+    public static ConcurrentHashMap<Integer,Room> rooms; //DAR NOME
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
@@ -45,9 +45,9 @@ public class Server {
 
         AcceptPeers accept_thread = new AcceptPeers();
         	new Thread(accept_thread).start();
-        CreateRoom create_thread = new CreateRoom();
+        /*CreateRoom create_thread = new CreateRoom();
         	new Thread(create_thread).start();
-        /*JoinRoom join_thread = new JoinRoom();
+        JoinRoom join_thread = new JoinRoom();
         	new Thread(join_thread).start();
         ShowRooms show_thread = new ShowRooms();
         	new Thread(show_thread).start();*/
@@ -84,14 +84,6 @@ public class Server {
 		Server.serverSocket = serverSocket;
 	}
 
-	public static SSLSocket getClient() {
-		return client;
-	}
-
-	public static void setClient(SSLSocket client) {
-		Server.client = client;
-	}
-
 	public static ConcurrentHashMap<Integer,SSLSocket> getPeers() {
 		return peers_id;
 	}
@@ -107,4 +99,5 @@ public class Server {
 	public static void setPort(int port) {
 		Server.port = port;
 	}
+	
 }
