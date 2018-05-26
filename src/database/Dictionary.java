@@ -23,11 +23,6 @@ public class Dictionary {
         return instance;
     }
 
-
-    /* TODO: change this to be used into jar*/
-    private static final String wordListDirectory = "/Users/davidfalcao/Documents/GitHub/GameStop/src/database/res/";
-
-
     public enum Category{
         country, capital, name, brand, tvShow, animal
     }
@@ -46,9 +41,10 @@ public class Dictionary {
     }
 
     private void loadWords(String fileName, Category cat) throws IOException {
-        File file = new File(wordListDirectory + fileName);
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        InputStream in = getClass().getResourceAsStream("res/"+ fileName);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String readWord;
 
         //InputStream in = getClass().getResourceAsStream("res/"+fileName);
