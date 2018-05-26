@@ -24,7 +24,7 @@ public class GameLogicTests {
         assertEquals(10, logic.word_score(animal,Dictionary.Category.animal, other_animals2,letter));
         assertEquals(5, logic.word_score(animal,Dictionary.Category.animal, other_animals3,letter));
         assertEquals(0, logic.word_score("Koala",Dictionary.Category.animal, other_animals3,letter));
-        
+
     }
 
     //@Test

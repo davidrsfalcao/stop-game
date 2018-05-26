@@ -1,20 +1,20 @@
 package listeners;
 
+import communication.Header;
 import communication.messages.*;
-import communication.responses.*;
-import communication.*;
-import server.*;
+import communication.responses.LoginResponse;
+import server.Authentication;
+import server.Server;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import java.sql.*;
 
 public class AcceptPeers implements Runnable {
 
@@ -28,12 +28,11 @@ public class AcceptPeers implements Runnable {
 
   public void run() {
 
-  /*try {
-     Authentication.connectToDB();
-     Authentication.createUsersTable();
-   } catch (SQLException e) {
-       e.printStackTrace();
-   }*/
+      try{
+          Authentication.Initialize();
+      } catch (SQLException e){
+          e.printStackTrace();
+      }
 
     while (true) {
         System.out.println("AcceptPeers Thread Running...");
@@ -74,15 +73,16 @@ class StorePeer implements Runnable {
     System.out.println("Peer " + id + " joined.");
 
     try {
-		    pw = new PrintWriter(this.socket.getOutputStream());
+        pw = new PrintWriter(this.socket.getOutputStream());
         br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		    System.out.println(br.readLine());
+        System.out.println(br.readLine());
 
         ap.server.peers_out.put(id, pw);
         ap.server.peers_in.put(id, br);
 
-		    boolean done = false;
-	      while(!done) {
+
+        boolean done = false;
+        while(!done) {
     			String received = br.readLine();
     			Message message = Message.parse(received);
     			if(message instanceof ListRoomsMessage) {
@@ -93,16 +93,71 @@ class StorePeer implements Runnable {
     			}
     			else if(message instanceof CreateRoomMessage) {
     				System.out.println("Received a Create Room Message");
-    			} else if(message instanceof LoginMessage) {
-    				System.out.println("Received a Login Message");
     			}
+    			else if(message instanceof LoginMessage) {
+                    System.out.println("Received a Login Message");
+
+    			    String user = ((LoginMessage) message).getUsername();
+    			    String password = ((LoginMessage) message).getPassword();
+
+                    String response;
+
+    			    if(Authentication.login(user, password)) {
+                        System.out.println("User: " + user + " logged in with pass: " + password);
+                        String certificate = Authentication.loginSuccessful(user);
+                        response = new LoginResponse(Header.SUCCESS, certificate).toString();
+
+                    }
+    			    else {
+                        System.out.println("User: " + user + " failed log in with pass: " + password);
+                        response = new LoginResponse(new String[] {Header.FAILURE}).toString();
+                    }
+
+                    pw.println(response);
+
+    			}
+                else if(message instanceof RegisterMessage) {
+    			    String user = ((RegisterMessage) message).getUsername();
+    			    String password = ((RegisterMessage) message).getPassword();
+
+    			    //TODO
+    			    //Either request first and last name and email for register OR
+                    //Remove those parameters from the USERS table
+                    //Both ways are quite easy, let's not worry about it for now and use hardcoded values
+
+                    String firstName = "TEMP";
+                    String lastName = "TEMP";
+                    String email = "TEMP@TEMP.TEMP";
+
+                    String response;
+
+                    if(Authentication.register(user, email, firstName, lastName, password)) {
+                        System.out.println("User: " + user + " registered successfully with password: " + password);
+
+                        //Registered successfully, now automatically logs in
+                        String certificate = Authentication.loginSuccessful(user);
+                        response = new RegisterMessage(Header.SUCCESS, certificate).toString();
+
+
+                    }
+                    else {
+                        System.out.println("User: " + user + " already exists in the database");
+                        response = new RegisterMessage(new String[] {Header.FAILURE}).toString();
+                    }
+
+                    pw.println(response);
+
+                }
     			else {
     				System.out.println("Message received not accepted");
     			}
   	    }
       } catch (IOException e) {
-  		// TODO Auto-generated catch block
-  		e.printStackTrace();
+  		System.out.println("Peer disconnected with id" + this.id);
+  		//TODO REMOVE PEER FROM LOGINS MAP
   	 }
+  	 catch (SQLException e){
+        e.printStackTrace();
+     }
     }
 };

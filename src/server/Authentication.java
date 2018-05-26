@@ -16,19 +16,18 @@ public class Authentication
     // define the driver to use
     private static final String driver = "org.apache.derby.jdbc.ClientDriver";
     // the database name
-    private static final String dbName = "StopGameTestSalt";
+    private static final String dbName = "StopGameTest2";
     // define the Derby connection URL to use
     private static final String connectionURL = "jdbc:derby://localhost:1527/" + dbName + ";create=true";
     // hold the connection object
     private static Connection conn = null;
 
-    public static void main(String[] args) throws SQLException
-    {
+    public static void main(String[] args) throws SQLException {
         connectToDB();
         createUsersTable();
 
         register("SalvadorSobral", "salvador@gmail.com", "Salvador", "Sobral", "eurovisao2017");
-        if(tryLogin("SalvadorSobral", "eurovisao2017"))
+        if(login("SalvadorSobral", "eurovisao2017"))
         {
             System.out.println("Login successful");
             //TODO Send certificate back to client
@@ -36,6 +35,13 @@ public class Authentication
         printUsers();
 
         closeConnection();
+    }
+
+    public static void Initialize() throws SQLException {
+        connectToDB();
+        createUsersTable();
+
+
     }
 
     public static boolean ipLoggedIn(String ip) {
@@ -100,7 +106,7 @@ public class Authentication
 
     public static boolean register(String username, String email, String firstName, String lastName, String password) throws SQLException {
 
-        System.out.println("Registering username: " + username);
+        System.out.println("Registering username: " + username + "with password: " + password);
 
         if(userExists(username)) {
             System.out.println("Username already in use");
@@ -140,27 +146,23 @@ public class Authentication
         return users;
     }
 
-    public static boolean tryLogin(String username, String password) throws SQLException {
+    public static String loginSuccessful(String username) throws SQLException {
+
+        Certificate certificate = new Certificate(username, certificateValidity);
+        logins.put(username, certificate);
+
+        return certificate.getCertificate();
+    }
+
+    public static boolean login(String username, String password) throws SQLException {
+
+        System.out.println("Logging in . . . .");
 
         if(logins.containsKey(username))
         {
             System.out.println("User: " + username + " is already logged in!");
-            //TODO USE IP TO CHECK IF SESSION IS VALID
-            //if(logins.get(username).getIP().equals(ip))
-            //		return true
             return false;
         }
-
-        if(login(username, password)) {
-            logins.put(username, new Certificate(username, certificateValidity));
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean login(String username, String password) throws SQLException {
-
-        System.out.println("Logging in . . . .");
 
         if(!userExists(username)) {
             System.out.println("Username " + username + " does not exist");
@@ -175,6 +177,7 @@ public class Authentication
 
         // hashes password to compare with database
         String passHash = Utilities.hashString(password, salt);
+
 
         if(!passHash.equals(retrievedPassHash))
         {
@@ -224,7 +227,7 @@ public class Authentication
 
 
     @SuppressWarnings("unused")
-    private static void printUsers() throws SQLException {
+    public static void printUsers() throws SQLException {
         ResultSet users = executeSelect("select USERNAME, EMAIL, FIRST_NAME, LAST_NAME, PASSHASH, SALT from USERS order by USERNAME");
 
         System.out.println(printLine);
