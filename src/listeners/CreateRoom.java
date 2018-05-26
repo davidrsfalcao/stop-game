@@ -17,18 +17,18 @@ import java.util.concurrent.TimeUnit;
 
 
 public class CreateRoom implements Runnable {
- 
+
   protected int nextID;
   protected int nextPort;
   protected String ip;
   protected Server server;
   private int max_players;
   private Inet4Address peer_ip;
-  
-  public CreateRoom () {
+
+  public CreateRoom (Server server) {
 	  this.nextID = 1;
 	  this.nextPort = 5001;
-	  this.server = Server.getInstance();
+	  this.server = server;
 	  try {
 		this.ip = Inet4Address.getLocalHost().getHostAddress();
 	  } catch (UnknownHostException e) {
@@ -43,29 +43,29 @@ public class CreateRoom implements Runnable {
       SSLServerSocket socket = server.getServerSocket();
     while (true) {
         DatagramPacket packet = new DatagramPacket(buf, buf.length);
-       
+
         String message = new String(packet.getData(), Charset.forName("ISO_8859_1"));
         this.peer_ip = (Inet4Address) packet.getAddress();
-        
+
         if (processMessage(message)) {
             Room new_room = new Room(this.peer_ip, this.nextPort, this.max_players);
-			
+
 			//Calls StoreRoom to store room on server's hashmap
 			ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 			scheduledPool.schedule(new StoreRoom(nextID, this, new_room), 0, TimeUnit.MILLISECONDS);
 			nextID++;
 			nextPort++;
         }
-        
+
       }
   }
-  
+
   //checks if message received is valid for CreateRoom
   private boolean processMessage(String message) {
 	  System.out.println("CR: Processing message: " + message);
 	  String messageType = message.split(" ")[0];
 	  String max_players = message.split(" ")[1];
-	  
+
 	  //checks type of message received
 	  if(!messageType.equals("CREATE")) {
 		  System.out.println("CR: not me");
@@ -79,14 +79,14 @@ public class CreateRoom implements Runnable {
 	  else {
 		  this.max_players = Integer.parseInt(max_players);
 		  //checks if max_players is inside acceptable range
-		  if(this.max_players > 5 || this.max_players < 2) { 
+		  if(this.max_players > 5 || this.max_players < 2) {
 			  System.out.println("CR: 2 <= Max_Players => 5 not verified.");
 			  return false;
 		  }
 	  }
 	  return true;
   }
-  
+
   //returns true if argument can be parsed to integer
   public static boolean isInteger(String string) {
 	    try {
@@ -114,7 +114,7 @@ class StoreRoom implements Runnable {
   public void run()
   {
     System.out.println("StoreRoom Thread started...");
-    
+
     try {
 		PrintWriter pw = new PrintWriter(this.socket.getOutputStream());
 	} catch (IOException e) {
@@ -127,7 +127,7 @@ class StoreRoom implements Runnable {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    
+
     cr.server.rooms.put(id, room);
     System.out.println("Room " + id + " created and stored.");
   }

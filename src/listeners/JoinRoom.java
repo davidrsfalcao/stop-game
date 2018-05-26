@@ -18,9 +18,9 @@ public class JoinRoom implements Runnable {
   private int room_id;
   private SSLSocket peer_socket;
   private int peer_id;
-  
-  public JoinRoom () {
-	  this.server = Server.getInstance();
+
+  public JoinRoom (Server server) {
+	  this.server = server;
 	  try {
 		this.ip = Inet4Address.getLocalHost().getHostAddress();
 	  } catch (UnknownHostException e) {
@@ -33,7 +33,7 @@ public class JoinRoom implements Runnable {
 
     while (true) {
         System.out.println("JoinRoom Thread Running...");
-        
+
         byte[] buf = new byte[256];
         DatagramPacket packet = new DatagramPacket(buf, buf.length);
         String message = new String(packet.getData(), Charset.forName("ISO_8859_1"));
@@ -43,7 +43,7 @@ public class JoinRoom implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+
         if (processMessage(message)) {
         	//TODO: Add peer to room.
         	Room room = this.server.rooms.get(room_id);
@@ -52,16 +52,16 @@ public class JoinRoom implements Runnable {
         	room.peers_socket.put(peer_socket, peer_id);
         	System.out.println("JR: Peer " + this.peer_id + " was added to the room " + this.room_id + ".");
         }
-        
+
       }
   }
-  
+
   //checks if message received is valid for CreateRoom
   private boolean processMessage(String message) {
 	  System.out.println("JR: Processing message: " + message);
 	  String messageType = message.split(" ")[0];
 	  String room_id = message.split(" ")[1];
-	  
+
 	  //checks type of message received
 	  if(!messageType.equals("JOIN")) {
 		  return false;
@@ -81,7 +81,7 @@ public class JoinRoom implements Runnable {
 	  }
 	  return true;
   }
-  
+
   //returns true if argument can be parsed to integer
   public static boolean isInteger(String string) {
 	    try {

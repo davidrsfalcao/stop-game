@@ -17,20 +17,20 @@ import java.util.concurrent.TimeUnit;
 
 
 public class AcceptPeers implements Runnable {
- 
+
   protected int nextID;
   protected Server server;
-  
-  public AcceptPeers () {
+
+  public AcceptPeers (Server server) {
 	  this.nextID = 1;
-	  this.server = Server.getInstance();
+	  this.server = server;
   }
-  
+
   public void run() {
 
     while (true) {
         System.out.println("AcceptPeers Thread Running...");
-        
+
             try {
                 SSLSocket client = (SSLSocket) Server.getServerSocket().accept();
                 ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
@@ -61,16 +61,17 @@ class StorePeer implements Runnable {
     System.out.println("StorePeer Thread started...");
     BufferedReader br;
     PrintWriter pw;
-    
+
     ap.server.peers_id.put(id, socket);
+    System.out.println("passei1");
     ap.server.peers_socket.put(socket,id);
     System.out.println("Peer " + id + " joined.");
-    
+
     try {
 		pw = new PrintWriter(this.socket.getOutputStream());
     	br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 		System.out.println(br.readLine());
-		
+
 		boolean done = false;
 	    while(!done) {
 			String received = br.readLine();
@@ -88,7 +89,7 @@ class StorePeer implements Runnable {
 				System.out.println("Message received not accepted");
 			}
 	    }
-			
+
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
