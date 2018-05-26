@@ -6,7 +6,9 @@ import objects.Room;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
@@ -17,39 +19,31 @@ public class Server {
     public BufferedReader in;
     private static int port;
 
-    public static ConcurrentHashMap<Integer,SSLSocket> peers_id;
-    public static ConcurrentHashMap<SSLSocket,Integer> peers_socket;
-    public static ConcurrentHashMap<Integer,Room> rooms; //DAR NOME
+    public static ConcurrentHashMap<Integer,SSLSocket> peers_id = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<SSLSocket,Integer> peers_socket = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<Integer,Room> rooms = new ConcurrentHashMap<>(); //DAR NOME
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
-    
-    public Server(int port) throws IOException {
 
-        InputStream file = getClass().getResourceAsStream("server.keys");
-        byte[] buffer = new byte[file.available()];
-        file.read(buffer);
+    public Server(int port) {
 
-        File targetFile = new File("ss.keys");
-        OutputStream outStream = new FileOutputStream(targetFile);
-        outStream.write(buffer);
-
-    	//String file = this.getClass().getResource("server.keys").getFile();
-    	System.setProperty("javax.net.ssl.keyStore", targetFile.getAbsolutePath());
+    	String file = this.getClass().getResource("server.keys").getFile();
+    	System.setProperty("javax.net.ssl.keyStore", file);
         System.setProperty("javax.net.ssl.keyStorePassword", "123456");
-        
+
         Server.port = port;
         Server.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-        
+
         try {
             Server.serverSocket = (SSLServerSocket) Server.factory.createServerSocket(port);
             Server.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
             Server.serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
         } catch (IOException e) {
             e.printStackTrace();
-        }    	
+        }
 
-        AcceptPeers accept_thread = new AcceptPeers();
+        AcceptPeers accept_thread = new AcceptPeers(this);
         	new Thread(accept_thread).start();
         /*CreateRoom create_thread = new CreateRoom();
         	new Thread(create_thread).start();
@@ -57,7 +51,7 @@ public class Server {
         	new Thread(join_thread).start();
         ShowRooms show_thread = new ShowRooms();
         	new Thread(show_thread).start();*/
-        
+
     }
 
     public static void main(String[] args) throws IOException {
@@ -76,10 +70,6 @@ public class Server {
         }
 
         return true;
-    }
-    
-    public static Server getInstance() {
-    	return server;
     }
 
 	public static SSLServerSocket getServerSocket() {
@@ -105,5 +95,5 @@ public class Server {
 	public static void setPort(int port) {
 		Server.port = port;
 	}
-	
+
 }
