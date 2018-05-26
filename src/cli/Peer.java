@@ -8,6 +8,10 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ConcurrentHashMap;
 
+import communication.messages.*;
+import communication.responses.*;
+import communication.*;
+
 public class Peer {
     private static Peer peer;
 
@@ -156,9 +160,9 @@ public class Peer {
       Scanner kb2 = new Scanner(System.in);
       String pass = kb2.nextLine();
 
-      /*String logInStr = createLogInMessage(user, pass);
+      String logInStr = new LoginMessage(user, pass).toString();
       this.out.println(logInStr);
-      if (rejected) {
+      /*if (rejected) {
         return true;
       }*/
 

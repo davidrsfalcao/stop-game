@@ -1,10 +1,9 @@
 package listeners;
 
-import communication.messages.CreateRoomMessage;
-import communication.messages.JoinRoomMessage;
-import communication.messages.ListRoomsMessage;
-import communication.messages.Message;
-import server.Server;
+import communication.messages.*;
+import communication.responses.*;
+import communication.*;
+import server.*;
 
 import javax.net.ssl.SSLSocket;
 import java.io.BufferedReader;
@@ -15,6 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import java.sql.*;
 
 public class AcceptPeers implements Runnable {
 
@@ -27,6 +27,13 @@ public class AcceptPeers implements Runnable {
   }
 
   public void run() {
+
+  /*try {
+     Authentication.connectToDB();
+     Authentication.createUsersTable();
+   } catch (SQLException e) {
+       e.printStackTrace();
+   }*/
 
     while (true) {
         System.out.println("AcceptPeers Thread Running...");
@@ -63,36 +70,39 @@ class StorePeer implements Runnable {
     PrintWriter pw;
 
     ap.server.peers_id.put(id, socket);
-    System.out.println("passei1");
     ap.server.peers_socket.put(socket,id);
     System.out.println("Peer " + id + " joined.");
 
     try {
-		pw = new PrintWriter(this.socket.getOutputStream());
-    	br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		System.out.println(br.readLine());
+		    pw = new PrintWriter(this.socket.getOutputStream());
+        br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+		    System.out.println(br.readLine());
 
-		boolean done = false;
-	    while(!done) {
-			String received = br.readLine();
-			Message message = Message.parse(received);
-			if(message instanceof ListRoomsMessage) {
-				System.out.println("Received a List Rooms Message");
-			}
-			else if(message instanceof JoinRoomMessage) {
-				System.out.println("Received a Join Room Message");
-			}
-			else if(message instanceof CreateRoomMessage) {
-				System.out.println("Received a Create Room Message");
-			}
-			else {
-				System.out.println("Message received not accepted");
-			}
-	    }
+        ap.server.peers_out.put(id, pw);
+        ap.server.peers_in.put(id, br);
 
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-  }
+		    boolean done = false;
+	      while(!done) {
+    			String received = br.readLine();
+    			Message message = Message.parse(received);
+    			if(message instanceof ListRoomsMessage) {
+    				System.out.println("Received a List Rooms Message");
+    			}
+    			else if(message instanceof JoinRoomMessage) {
+    				System.out.println("Received a Join Room Message");
+    			}
+    			else if(message instanceof CreateRoomMessage) {
+    				System.out.println("Received a Create Room Message");
+    			} else if(message instanceof LoginMessage) {
+    				System.out.println("Received a Login Message");
+    			}
+    			else {
+    				System.out.println("Message received not accepted");
+    			}
+  	    }
+      } catch (IOException e) {
+  		// TODO Auto-generated catch block
+  		e.printStackTrace();
+  	 }
+    }
 };

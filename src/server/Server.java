@@ -21,6 +21,8 @@ public class Server {
 
     public static ConcurrentHashMap<Integer,SSLSocket> peers_id = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<SSLSocket,Integer> peers_socket = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<Integer,PrintWriter> peers_out = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<Integer,BufferedReader> peers_in = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,Room> rooms = new ConcurrentHashMap<>(); //DAR NOME
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
