@@ -85,6 +85,29 @@ if(received_message instanceof CreateRoomMessage){
 
 ```
 
+
+### PLAY
+
+
+```java
+
+/* Create play message */ 
+String message = new PlayMessage(name,country,capital,brand,animal,tvShow).toString();
+
+/* Interpret play message */
+Message received_message = Message.parse(message);
+
+if(received_message instanceof PlayMessage){
+    name = (PlayMessage) received_message).getName();
+    country = (PlayMessage) received_message).getCountry();
+    capital = ((PlayMessage) received_message).getCapital();
+    brand = ((PlayMessage) received_message).getBrand();
+    animal = ((PlayMessage) received_message).getAnimal();
+    tvShow = ((PlayMessage) received_message).getTvShow();
+}
+
+```
+
 # Responses
 
 ### LOGIN
