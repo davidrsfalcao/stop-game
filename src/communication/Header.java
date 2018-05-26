@@ -11,6 +11,11 @@ public interface Header {
     public final static String CREATEROOM = "CREATEROOM";
 
 
+    /* Peer to peer*/
+    public final static String PLAY = "PLAY";
+
+
+
     public final static String SUCCESS = "SUCCESS";
     public final static String FAILURE = "FAILURE";
 }

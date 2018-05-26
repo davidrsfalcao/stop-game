@@ -34,6 +34,9 @@ public abstract class Message implements Header {
             case CREATEROOM:
                 return new CreateRoomMessage(args);
 
+            case PLAY:
+                return new PlayMessage(args);
+
         }
 
         return new ErrorMessage("Invalid message");

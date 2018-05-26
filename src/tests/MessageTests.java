@@ -354,6 +354,47 @@ public class MessageTests {
 
     }
 
+    @Test
+    void test_play_message(){
+        String name = "Leonard";
+        String country = "LUXEMBOURG";
+        String capital = "Lisbon";
+        String brand = "Lenovo";
+        String animal = "Leopard";
+        String tvShow = "Los Pollos";
+
+        /* Testar criar mensagem*/
+        String expected_message = Header.PLAY + Header.SEPARATOR + name + Header.SEPARATOR + country +
+                Header.SEPARATOR + capital + Header.SEPARATOR + brand + Header.SEPARATOR + animal + Header.SEPARATOR + tvShow;
+        String message = new PlayMessage(name,country,capital,brand,animal,tvShow).toString();
+
+        assertEquals(expected_message, message);
+
+        /* Testar interpretar mensagem*/
+        Message received_message = Message.parse(message);
+
+        assert(received_message instanceof PlayMessage);
+        assertEquals(name, ((PlayMessage) received_message).getName());
+        assertEquals(country, ((PlayMessage) received_message).getCountry());
+        assertEquals(capital, ((PlayMessage) received_message).getCapital());
+        assertEquals(brand, ((PlayMessage) received_message).getBrand());
+        assertEquals(animal, ((PlayMessage) received_message).getAnimal());
+        assertEquals(tvShow, ((PlayMessage) received_message).getTvShow());
+
+        /* Testar enviar mensagem com campos vazios */
+        String expected_message1 = Header.PLAY + Header.SEPARATOR + "" + Header.SEPARATOR + "" +
+                Header.SEPARATOR + "" + Header.SEPARATOR + "" + Header.SEPARATOR + "" + Header.SEPARATOR + "";
+        String message1 = new PlayMessage("","","","","","").toString();
+
+        assertEquals(expected_message1, message1);
+
+        /* Testar interpretar mensagem com campos vazios */
+        Message received_message1 = Message.parse(message1);
+
+        assert(received_message1 instanceof PlayMessage);
+
+    }
+
 
 
 }
