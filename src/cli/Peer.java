@@ -181,15 +181,17 @@ public class Peer {
       Scanner kb2 = new Scanner(System.in);
       String pass = kb.nextLine();
 
-      /*String registerStr = createRegisterMessage(user, pass);
+      String registerStr = new RegisterMessage(user, pass).toString();
       this.out.println(registerStr);
-      if (rejected) {
+      /*if (rejected) {
         return true;
       }*/
 
       this.username = user;
       return false;
     }
+
+//////////////
 
     public void seeRooms() {
 
