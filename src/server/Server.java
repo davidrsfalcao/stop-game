@@ -19,6 +19,7 @@ public class Server {
     public BufferedReader in;
     private static int port;
 
+    public static ConcurrentHashMap<Integer, String> peers_username = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,SSLSocket> peers_id = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<SSLSocket,Integer> peers_socket = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,PrintWriter> peers_out = new ConcurrentHashMap<>();

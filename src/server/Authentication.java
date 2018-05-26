@@ -189,6 +189,13 @@ public class Authentication
         return true;
     }
 
+    public static boolean logout(String username) {
+        if(!logins.containsKey(username))
+            return false;
+
+        logins.remove(username);
+        return true;
+    }
     // utility and debug functions
 
 

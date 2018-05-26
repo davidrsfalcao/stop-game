@@ -73,12 +73,12 @@ class StorePeer implements Runnable {
     System.out.println("Peer " + id + " joined.");
 
     try {
-        pw = new PrintWriter(this.socket.getOutputStream());
+        pw = new PrintWriter(this.socket.getOutputStream(), true);
         br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         System.out.println(br.readLine());
 
-        ap.server.peers_out.put(id, pw);
-        ap.server.peers_in.put(id, br);
+        Server.peers_out.put(id, pw);
+        Server.peers_in.put(id, br);
 
 
         boolean done = false;
@@ -105,14 +105,16 @@ class StorePeer implements Runnable {
     			    if(Authentication.login(user, password)) {
                         System.out.println("User: " + user + " logged in with pass: " + password);
                         String certificate = Authentication.loginSuccessful(user);
+                        Server.peers_username.put(id, user);
                         response = new LoginResponse(Header.SUCCESS, certificate).toString();
 
                     }
     			    else {
                         System.out.println("User: " + user + " failed log in with pass: " + password);
-                        response = new LoginResponse(new String[] {Header.FAILURE}).toString();
+                        response = new LoginResponse(Header.FAILURE, "").toString();
                     }
 
+                    System.out.println(response);
                     pw.println(response);
 
     			}
@@ -136,13 +138,14 @@ class StorePeer implements Runnable {
 
                         //Registered successfully, now automatically logs in
                         String certificate = Authentication.loginSuccessful(user);
+                        Server.peers_username.put(id, user);
                         response = new RegisterMessage(Header.SUCCESS, certificate).toString();
 
 
                     }
                     else {
                         System.out.println("User: " + user + " already exists in the database");
-                        response = new RegisterMessage(new String[] {Header.FAILURE}).toString();
+                        response = new RegisterMessage(Header.FAILURE, "").toString();
                     }
 
                     pw.println(response);
@@ -153,8 +156,19 @@ class StorePeer implements Runnable {
     			}
   	    }
       } catch (IOException e) {
-  		System.out.println("Peer disconnected with id" + this.id);
-  		//TODO REMOVE PEER FROM LOGINS MAP
+  		if(Server.peers_username.containsKey(this.id)) {
+  		    String username = Server.peers_username.get(this.id);
+
+  		    if(Authentication.logout(username))
+  		        System.out.println("User: " + username + " has logged out.");
+  		    else
+  		        System.out.println("User: " + username + " was already logged out.");
+
+            Server.peers_username.remove(this.id);
+        }
+        else
+  		    System.out.println("Peer with id: " + id + " has disconnected.");
+
   	 }
   	 catch (SQLException e){
         e.printStackTrace();

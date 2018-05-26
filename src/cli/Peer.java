@@ -1,16 +1,15 @@
 package cli;
-import javax.net.ssl.HandshakeCompletedEvent;
-import javax.net.ssl.HandshakeCompletedListener;
+import communication.Header;
+import communication.messages.LoginMessage;
+import communication.messages.RegisterMessage;
+import communication.responses.LoginResponse;
+import communication.responses.RegisterResponse;
+import communication.responses.Response;
+
 import javax.net.ssl.*;
 import java.io.*;
-
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ConcurrentHashMap;
-
-import communication.messages.*;
-import communication.responses.*;
-import communication.*;
 
 public class Peer {
     private static Peer peer;
@@ -73,6 +72,7 @@ public class Peer {
             System.out.println("Linked to Server!");
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
             this.out.println("Hello from " + ip + ":" + port);
+            this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 
         }
 
@@ -124,7 +124,7 @@ public class Peer {
 
 //////////////////////////////
 
-    public Boolean startAutetincation() {
+    public Boolean startAutetincation() throws IOException{
       Boolean temp=true;
       while (temp) {
         System.out.println("Choose how you want to be authenticated:");
@@ -141,6 +141,7 @@ public class Peer {
           temp = logIn();
         } else if (option == 2) {
           temp = register();
+
         } else {
           System.out.println("Wrong number");
           continue;
@@ -149,7 +150,7 @@ public class Peer {
       return false;
     }
 
-    public Boolean logIn() {
+    public Boolean logIn() throws IOException{
 
       System.out.println("-------------//--------------");
       System.out.println("Insert your username: ");
@@ -162,15 +163,24 @@ public class Peer {
 
       String logInStr = new LoginMessage(user, pass).toString();
       this.out.println(logInStr);
-      /*if (rejected) {
-        return true;
-      }*/
+
+      String messageString = this.in.readLine();
+
+      LoginResponse response = (LoginResponse) Response.parse(messageString);
+
+      String result = response.getResult();
+
+
+      if (result.equals(Header.FAILURE)) {
+          System.out.println("Incorrect username/password combination");
+          return true;
+      }
 
       this.username = user;
       return false;
     }
 
-    public Boolean register() {
+    public Boolean register() throws IOException{
 
       System.out.println("-------------//--------------");
       System.out.println("Insert your username: ");
@@ -183,12 +193,20 @@ public class Peer {
 
       String registerStr = new RegisterMessage(user, pass).toString();
       this.out.println(registerStr);
-      /*if (rejected) {
-        return true;
-      }*/
 
-      this.username = user;
-      return false;
+      String messageString = this.in.readLine();
+
+      RegisterResponse response = (RegisterResponse) Response.parse(messageString);
+
+      String result = response.getResult();
+
+      if (result.equals(Header.FAILURE)) {
+          System.out.println("Username already in use");
+          return true;
+      }
+
+        this.username = user;
+        return false;
     }
 
 //////////////
