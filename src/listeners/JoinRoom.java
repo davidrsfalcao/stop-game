@@ -1,6 +1,6 @@
 package listeners;
 
-import server.Room;
+import objects.Room;
 import server.Server;
 
 import javax.net.ssl.SSLSocket;
@@ -38,7 +38,7 @@ public class JoinRoom implements Runnable {
         DatagramPacket packet = new DatagramPacket(buf, buf.length);
         String message = new String(packet.getData(), Charset.forName("ISO_8859_1"));
 		try {
-			peer_socket = (SSLSocket) Server.getInstance().getServerSocket().accept();
+			peer_socket = (SSLSocket) Server.getServerSocket().accept();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
