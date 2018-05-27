@@ -28,6 +28,10 @@ public class Room {
 		return port;
 	}
 
+	public int getMaxPlayers() {
+		return max_players;
+	}
+
 	public void setPlayers() {
 		this.no_players++;
 	}

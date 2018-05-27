@@ -2,7 +2,7 @@ package listeners;
 
 import communication.Header;
 import communication.messages.*;
-import communication.responses.LoginResponse;
+import communication.responses.*;
 import server.Authentication;
 import server.Server;
 
@@ -105,19 +105,37 @@ class StorePeer implements Runnable {
     			if(message instanceof ListRoomsMessage) {
     				System.out.println("Received a List Rooms Message");
 
-            System.out.println("ConcurrentHashMap before iterator: "+ ap.server.rooms);
+            String send = "";
 
         		Iterator<String> it = ap.server.rooms.keySet().iterator();
 
         		while(it.hasNext()){
         			String key = it.next();
         			System.out.println(key);
+              send = send + "," + key;
         		}
 
-        		System.out.println("ConcurrentHashMap after iterator: "+ ap.server.rooms);
+        		if (send.equals(""))
+              send = "FAILURE";
+            else
+              send = "SUCCESS" + send;
+
+            pw.println(send);
+
     			}
     			else if(message instanceof JoinRoomMessage) {
     				System.out.println("Received a Join Room Message");
+
+            String room_name = ((JoinRoomMessage) message).getRoomName();
+            String response = "";
+
+            if (!( ap.server.rooms.get(room_name).getPlayersLeft() > 0 ) )
+              response = new JoinRoomResponse(Header.FAILURE,  0).toString();
+            else
+              response = new JoinRoomResponse(Header.SUCCESS,  ap.server.rooms.get(room_name).getPort()).toString();
+
+            System.out.println(response);
+            pw.println(response);
     			}
     			else if(message instanceof CreateRoomMessage) {
     				System.out.println("Received a Create Room Message");

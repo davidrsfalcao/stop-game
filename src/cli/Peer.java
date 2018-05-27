@@ -114,7 +114,7 @@ public class Peer {
             peer.seeRooms();
           } else if (option == 2) {
             peer.createRoom();
-            peer.playGameMaster();
+            peer.playGame();
           } else {
             System.out.println("Wrong number");
             continue;
@@ -213,56 +213,59 @@ public class Peer {
 
     public void seeRooms() throws IOException {
 
+      System.out.println("-------------//--------------");
+
       String seeRoomsStr = new ListRoomsMessage().toString();
       this.out.println(seeRoomsStr);
 
       String responseString = this.in.readLine();
-      /*CreateRoomResponse response = (CreateRoomResponse) Response.parse(responseString);
-      System.out.println(response);
+      System.out.println(responseString);
+      String[] response2 = responseString.split(",");
 
-      if (response.getResult().equals(Header.FAILURE)) {
-          System.out.println("Room not valid!");
+      if (response2[0].equals(Header.FAILURE)) {
+          System.out.println("No rooms available!");
           return;
-      }*/
-      //PRINT ROOMS INFORMATION : numbered from 1 to the total of rooms;
+      }
 
       System.out.println("Do you want to join a room? (0 to quit)");
 
+      for (int i = 0; i < ( response2.length - 1 ); i++) {
+        int j = i + 1;
+        System.out.println(j + " - " + response2[j]);
+      }
+
       Scanner kb = new Scanner(System.in);
       int option = kb.nextInt();
+
+      if ( (option < 1) || (option > (response2.length - 1) ) )
+        return;
+
+      if (joinRoom(response2[option]))
+        playGame();
     }
 
-    public Boolean joinRoom(String roomId) {
-      /*String joinStr = createRegisterMessage(roomId);
+    public Boolean joinRoom(String roomName) throws IOException {
+      String joinStr = new JoinRoomMessage(roomName).toString();
       this.out.println(joinStr);
-      if (rejected) {
+
+      String responseString = this.in.readLine();
+      System.out.println(responseString);
+      JoinRoomResponse response = (JoinRoomResponse) Response.parse(responseString);
+
+      if (response.getResult().equals(Header.FAILURE)) {
         System.out.println("Room not available");
-        return true;
-      } else if (ok && yes) {
-        join
-        ...
-      } else if (ok && yes) {
-        join
-        ...
-
-        this.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-
-        try {
-            serverSocket = (SSLServerSocket) Server.factory.createServerSocket(port);
-            serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
-            serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        while () {
-
-        }
+        return false;
       }
-      */
 
-      return false;
-    }
+      this.roomPort = response.getPort();
+      System.out.println(this.ip);
+      System.out.println(this.roomPort);
+      this.roomSocket = new Socket(this.ip, this.roomPort);
+
+      System.out.println("Joined room" + roomName + "!");
+
+      return true;
+      }
 
     public void createRoom() {
 
@@ -309,7 +312,7 @@ public class Peer {
         }
       }
 
-      public void playGameMaster() throws IOException {
+      public void playGame() throws IOException {
 
         this.inRoom = new BufferedReader(new InputStreamReader(this.roomSocket.getInputStream()));
         this.outRoom = new PrintWriter(this.roomSocket.getOutputStream(), true);

@@ -1,19 +1,21 @@
 package communication;
 
 public interface Header {
-    String SEPARATOR = "!@!";
+    public final static String SEPARATOR = "!@!";
 
-    String ERROR = "ERROR";
-    String LOGIN = "LOGIN";
-    String REGISTER = "REGISTER";
-    String LISTROOMS = "LISTROOMS";
-    String JOINROOM = "JOINROOM";
-    String CREATEROOM = "CREATEROOM";
-    String PLAY = "PLAY";
-    String LETTER = "LETTER";
+    public final static String ERROR = "ERROR";
+    public final static String LOGIN = "LOGIN";
+    public final static String REGISTER = "REGISTER";
+    public final static String LISTROOMS = "LISTROOMS";
+    public final static String JOINROOM = "JOINROOM";
+    public final static String CREATEROOM = "CREATEROOM";
 
 
+    /* Peer to peer*/
+    public final static String PLAY = "PLAY";
 
-    String SUCCESS = "SUCCESS";
-    String FAILURE = "FAILURE";
+
+
+    public final static String SUCCESS = "SUCCESS";
+    public final static String FAILURE = "FAILURE";
 }

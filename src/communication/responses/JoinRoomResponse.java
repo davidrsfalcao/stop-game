@@ -3,14 +3,16 @@ package communication.responses;
 public class JoinRoomResponse extends  Response{
 
     private String result;
+    private int port;
 
-    public JoinRoomResponse(String result){
+    public JoinRoomResponse(String result, int port){
         this.result = result;
+        this.port = port;
     }
 
     public JoinRoomResponse(String[] args){
 
-        if(args.length != 2 ){
+        if(args.length != 3 ){
             this.type = ERROR;
             return;
         }
@@ -22,12 +24,13 @@ public class JoinRoomResponse extends  Response{
 
         this.type = JOINROOM;
         this.result = args[1];
+        this.port = Integer.parseInt(args[2]);
 
     }
 
     @Override
     public String toString() {
-       return JOINROOM + SEPARATOR + result;
+       return JOINROOM + SEPARATOR + result + SEPARATOR + port;
 
     }
 
@@ -35,4 +38,7 @@ public class JoinRoomResponse extends  Response{
         return result;
     }
 
+    public int getPort() {
+        return port;
+    }
 }

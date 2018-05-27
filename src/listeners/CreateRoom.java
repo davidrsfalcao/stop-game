@@ -122,5 +122,37 @@ class StoreRoom implements Runnable {
       }
 
       System.out.println("Room " + this.name + " started.");
+
+      Iterator<String> it = ap.server.rooms.keySet().iterator();
+
+      while(it.hasNext()){
+        String key = it.next();
+        System.out.println(key);
+        send = send + "," + key;
+
+        try {
+            ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+            scheduledPool.schedule(new StorePeer(nextID, client, this), 0, TimeUnit.MILLISECONDS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      }
+  }
+};
+
+class RoomPeers implements Runnable {
+
+  private String name;
+  private SSLSocket socket;
+  private CreateRoom cr;
+  private Room room;
+  private int nextID;
+  private ServerSocket roomServer;
+
+  public StoreRoom(String name, CreateRoom cr, Room room) {
+    this.name = name;
+    this.cr = cr;
+    this.room = room;
+    this.nextID = 1;
   }
 };

@@ -313,11 +313,10 @@ public class MessageTests {
     public void test_create_room_responses(){
 
         String result = Header.SUCCESS;
-        int port = 8080;
 
         /* Testar criar resposta*/
-        String expected_message = Header.CREATEROOM + Header.SEPARATOR + result + Header.SEPARATOR + port;
-        String response = new CreateRoomResponse(result, port).toString();
+        String expected_message = Header.CREATEROOM + Header.SEPARATOR + result;
+        String response = new CreateRoomResponse(result).toString();
 
         assertEquals(expected_message, response);
 
@@ -329,7 +328,7 @@ public class MessageTests {
 
         /* Testar enviar resposta com campos vazios */
         String expected_response1 = Header.CREATEROOM + Header.SEPARATOR + "";
-        String response1 = new CreateRoomResponse("", port).toString();
+        String response1 = new CreateRoomResponse("").toString();
 
         assertEquals(expected_response1, response1);
 
@@ -343,7 +342,7 @@ public class MessageTests {
 
         /* Testar criar resposta failure*/
         String expected_message2 = Header.CREATEROOM + Header.SEPARATOR + result1;
-        String response2 = new CreateRoomResponse(result1, port).toString();
+        String response2 = new CreateRoomResponse(result1).toString();
 
         assertEquals(expected_message2, response2);
 
