@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.Iterator;
 
 public class AcceptPeers implements Runnable {
 
@@ -103,6 +104,17 @@ class StorePeer implements Runnable {
     			Message message = Message.parse(received);
     			if(message instanceof ListRoomsMessage) {
     				System.out.println("Received a List Rooms Message");
+
+            System.out.println("ConcurrentHashMap before iterator: "+ ap.server.rooms);
+
+        		Iterator<String> it = ap.server.rooms.keySet().iterator();
+
+        		while(it.hasNext()){
+        			String key = it.next();
+        			System.out.println(key);
+        		}
+
+        		System.out.println("ConcurrentHashMap after iterator: "+ ap.server.rooms);
     			}
     			else if(message instanceof JoinRoomMessage) {
     				System.out.println("Received a Join Room Message");

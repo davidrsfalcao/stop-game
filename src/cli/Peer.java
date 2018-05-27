@@ -211,33 +211,25 @@ public class Peer {
 
 //////////////
 
-    public void seeRooms() {
+    public void seeRooms() throws IOException {
 
-      /*String seeRoomsStr = createSeeRoomsMessage();
+      String seeRoomsStr = new ListRoomsMessage().toString();
+      this.out.println(seeRoomsStr);
 
+      String responseString = this.in.readLine();
+      /*CreateRoomResponse response = (CreateRoomResponse) Response.parse(responseString);
+      System.out.println(response);
+
+      if (response.getResult().equals(Header.FAILURE)) {
+          System.out.println("Room not valid!");
+          return;
+      }*/
       //PRINT ROOMS INFORMATION : numbered from 1 to the total of rooms;
 
-      System.out.println("Do you want to join a room?");
+      System.out.println("Do you want to join a room? (0 to quit)");
 
       Scanner kb = new Scanner(System.in);
       int option = kb.nextInt();
-
-      Boolean control = true;
-
-      if (option == 0) {
-        return;
-      } else if (option == 1) {
-        this.joinRoom(number);
-      } else if (option == 2) {
-        this.joinRoom(number);
-        ...
-
-      } else {
-        System.out.println("Wrong number");
-        continue;
-      }
-      */
-
     }
 
     public Boolean joinRoom(String roomId) {
@@ -322,6 +314,7 @@ public class Peer {
         this.inRoom = new BufferedReader(new InputStreamReader(this.roomSocket.getInputStream()));
         this.outRoom = new PrintWriter(this.roomSocket.getOutputStream(), true);
 
+        System.out.println("Waiting for the game to start...");
         String chooseLetter = this.in.readLine();
       }
   }
