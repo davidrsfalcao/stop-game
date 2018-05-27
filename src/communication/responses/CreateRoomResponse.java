@@ -12,7 +12,7 @@ public class CreateRoomResponse extends  Response{
 
     public CreateRoomResponse(String[] args){
 
-        if(args.length != 3 ){
+        if(args.length < 2 || args.length > 3 ){
             this.type = ERROR;
             return;
         }
@@ -24,12 +24,34 @@ public class CreateRoomResponse extends  Response{
 
         this.type = CREATEROOM;
         this.result = args[1];
-        this.port = Integer.parseInt(args[2]);
+
+        if((result.equals(SUCCESS) && (args.length == 2)) || (result.equals(FAILURE) && (args.length == 3))){
+            this.type = ERROR;
+            port = 0;
+            return;
+        }
+
+        if(result.equals(FAILURE)){
+            return;
+        }
+
+        try {
+            port = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            port = 0;
+            this.type = ERROR;
+            return;
+        }
+
     }
 
     @Override
     public String toString() {
-        return CREATEROOM + SEPARATOR + result + SEPARATOR + port;
+        if(result.equals(SUCCESS)){
+            return CREATEROOM + SEPARATOR + result + SEPARATOR + port;
+        }
+        else return CREATEROOM + SEPARATOR + result;
+
 
     }
 
