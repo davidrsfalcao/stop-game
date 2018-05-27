@@ -1,6 +1,6 @@
 package listeners;
 
-import server.Room;
+import objects.Room;
 import server.Server;
 
 import javax.net.ssl.SSLSocket;
