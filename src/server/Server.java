@@ -36,35 +36,35 @@ public class Server {
 
     	String file = this.getClass().getResource("server.keys").getFile();
     	System.setProperty("javax.net.ssl.keyStore", file);
-        System.setProperty("javax.net.ssl.keyStorePassword", "123456");
+      System.setProperty("javax.net.ssl.keyStorePassword", "123456");
 
-        Server.port = port;
-        Server.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+      Server.port = port;
+      Server.factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
-        try {
-            InetAddress ipAddr = InetAddress.getLocalHost();
-            this.ip = ipAddr.getHostAddress();
-            System.out.println(ipAddr.getHostAddress());
-        } catch (UnknownHostException ex) {
-            ex.printStackTrace();
-        }
+      try {
+          InetAddress ipAddr = InetAddress.getLocalHost();
+          this.ip = ipAddr.getHostAddress();
+          System.out.println(ipAddr.getHostAddress());
+      } catch (UnknownHostException ex) {
+          ex.printStackTrace();
+      }
 
-        try {
-            Server.serverSocket = (SSLServerSocket) Server.factory.createServerSocket(port);
-            Server.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
-            Server.serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      try {
+          Server.serverSocket = (SSLServerSocket) Server.factory.createServerSocket(port);
+          Server.serverSocket.setEnabledProtocols(ENC_PROTOCOLS);
+          Server.serverSocket.setEnabledCipherSuites(ENC_CYPHER_SUITES);
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
 
-        CreateRoom create_thread = new CreateRoom(this);
-        	new Thread(create_thread).start();
-        AcceptPeers accept_thread = new AcceptPeers(this);
-        	new Thread(accept_thread).start();
-        /*JoinRoom join_thread = new JoinRoom();
-        	new Thread(join_thread).start();
-        ShowRooms show_thread = new ShowRooms();
-        	new Thread(show_thread).start();*/
+      CreateRoom create_thread = new CreateRoom(this);
+      	new Thread(create_thread).start();
+      AcceptPeers accept_thread = new AcceptPeers(this);
+      	new Thread(accept_thread).start();
+      /*JoinRoom join_thread = new JoinRoom();
+      	new Thread(join_thread).start();
+      ShowRooms show_thread = new ShowRooms();
+      	new Thread(show_thread).start();*/
 
     }
 

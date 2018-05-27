@@ -22,6 +22,8 @@ public class AcceptPeers implements Runnable {
   protected int nextID;
   protected Server server;
   protected Socket createSock;
+  protected BufferedReader br_createSock;
+  protected PrintWriter pw_createSock;
 
   public AcceptPeers (Server server) {
 	  this.nextID = 1;
@@ -38,6 +40,8 @@ public class AcceptPeers implements Runnable {
     try {
       System.out.println(this.server.ip);
       this.createSock = new Socket(this.server.ip, 5000);
+      pw_createSock = new PrintWriter(this.createSock.getOutputStream(), true);
+      br_createSock = new BufferedReader(new InputStreamReader(this.createSock.getInputStream()));
     } catch (UnknownHostException e) {
         e.printStackTrace();
     } catch (IOException f) {
@@ -105,8 +109,11 @@ class StorePeer implements Runnable {
     			}
     			else if(message instanceof CreateRoomMessage) {
     				System.out.println("Received a Create Room Message");
-            String room_name = ((CreateRoomMessage) message).getRoomName();
-
+            ap.pw_createSock.println(received);
+            System.out.println("12345");
+            String response = ap.br_createSock.readLine();
+            System.out.println("123456");
+            pw.println(response);
     			}
     			else if(message instanceof LoginMessage) {
               System.out.println("Received a Login Message");

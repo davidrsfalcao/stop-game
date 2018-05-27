@@ -25,8 +25,8 @@ public class CreateRoom implements Runnable {
 
   protected Server server;
   private static int port;
-  private static PrintWriter pw;
-  private static BufferedReader br;
+  public static PrintWriter pw;
+  public static BufferedReader br;
   private int max_players;
   private Inet4Address peer_ip;
   private AtomicInteger nextPort = new AtomicInteger(5000);
@@ -53,15 +53,14 @@ public class CreateRoom implements Runnable {
         this.pw = new PrintWriter(this.createAccept.getOutputStream(), true);
         this.br = new BufferedReader(new InputStreamReader(this.createAccept.getInputStream()));
 
-        boolean done = false;
-        while (!done) {
+        while (true) {
 
             String message = br.readLine();
             Message received_message = Message.parse(message);
 
             String room_name = ((CreateRoomMessage) received_message).getRoomName();
 
-            Room new_room = new Room(this.server.ip, this.nextPort.getAndIncrement(), this.max_players, ((CreateRoomMessage) received_message).getRoomName());
+            Room new_room = new Room(this.server.ip, this.nextPort.getAndIncrement(), ((CreateRoomMessage) received_message).getMaxPlayers(), ((CreateRoomMessage) received_message).getRoomName());
 
           	//Calls StoreRoom to store room on server's hashmap
           	ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
@@ -81,26 +80,45 @@ class StoreRoom implements Runnable {
   private SSLSocket socket;
   private CreateRoom cr;
   private Room room;
+  private int nextID;
+  private ServerSocket roomServer;
 
   public StoreRoom(String name, CreateRoom cr, Room room) {
     this.name = name;
     this.cr = cr;
     this.room = room;
+    this.nextID = 1;
   }
 
   public void run()
   {
     System.out.println("StoreRoom Thread started...");
 
-    try {
-  		PrintWriter pw = new PrintWriter(this.socket.getOutputStream());
-  		System.out.println(cr.server.in.readLine());
-  	} catch (IOException e) {
-  		// TODO Auto-generated catch block
-  		e.printStackTrace();
-  	}
+    String response = new CreateRoomResponse("SUCCESS", room.getPort()).toString();
+  	cr.pw.println(response);
 
-    //cr.server.rooms.put(id, room);
+    System.out.println("Pass.");
+
+    cr.server.rooms.put(name, room);
     System.out.println("Room " + this.name + " created and stored.");
+    System.out.println("Room " + this.name + " is accepting Peers.");
+
+    boolean done = false;
+    try {
+        this.roomServer = new ServerSocket(room.getPort());
+        while (!done) {
+          System.out.println("Room " + this.name + " needs " + room.getPlayersLeft() + " more Peers.");
+
+          Socket client = this.roomServer.accept();
+          room.setPlayers();
+          room.peers_id.put(this.nextID, client);
+          room.peers_socket.put(client, this.nextID);
+          if (room.getPlayersLeft() == 0)
+            done = true;
+          nextID++;
+        }
+      } catch (IOException e) {
+            e.printStackTrace();
+      }
   }
 };
