@@ -9,9 +9,9 @@ public class ServerLauncher {
         //PageManager pages = PageManager.getInstance();
         //pages.push_page(new ServerPage());
         Server.port = 8080;
-        Server server = Server.getInstance();
+        //Server server = Server.getInstance();
 
-        server.start();
+        //server.start();
 
 
 

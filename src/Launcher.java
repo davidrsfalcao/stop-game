@@ -29,8 +29,8 @@ public class Launcher {
         switch (a){
             case 1:
                 System.out.println("SERVER");
-                Server.port = 8080;
-                Server server = Server.getInstance();
+                //Server.port = 8080;
+                Server server = new Server(8080);
 
                 break;
             case 2:

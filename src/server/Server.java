@@ -1,7 +1,6 @@
 package server;
 
 import listeners.*;
-import objects.Room;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -20,7 +19,7 @@ public class Server {
     public PrintWriter out;
     public BufferedReader in;
     public static int port;
-    public static String ip;
+    public static InetAddress ip;
 
     public static ConcurrentHashMap<Integer, String> peers_username = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,SSLSocket> peers_id = new ConcurrentHashMap<>();
@@ -43,7 +42,7 @@ public class Server {
 
         try {
             InetAddress ipAddr = InetAddress.getLocalHost();
-            this.ip = ipAddr.getHostAddress();
+            this.ip = ipAddr;
             System.out.println(ipAddr.getHostAddress());
         } catch (UnknownHostException ex) {
             ex.printStackTrace();

@@ -1,20 +1,18 @@
 package listeners;
 
-import objects.Room;
+import communication.messages.CreateRoomMessage;
+import communication.messages.Message;
+import server.Room;
 import server.Server;
-import communication.Header;
-import communication.messages.*;
-import communication.responses.*;
 
-import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
-import java.net.*;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.*;
-import java.net.DatagramPacket;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Inet4Address;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -61,7 +59,9 @@ public class CreateRoom implements Runnable {
 
             String room_name = ((CreateRoomMessage) received_message).getRoomName();
 
-            Room new_room = new Room(this.server.ip, this.nextPort.getAndIncrement(), this.max_players, ((CreateRoomMessage) received_message).getRoomName());
+            Inet4Address ip = (Inet4Address) Server.ip;
+
+            Room new_room = new Room(ip, this.nextPort.getAndIncrement(), this.max_players, ((CreateRoomMessage) received_message).getRoomName());
 
           	//Calls StoreRoom to store room on server's hashmap
           	ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
