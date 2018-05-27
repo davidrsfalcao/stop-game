@@ -7,6 +7,7 @@ import server.Authentication;
 import server.Server;
 
 import javax.net.ssl.SSLSocket;
+import java.net.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +21,7 @@ public class AcceptPeers implements Runnable {
 
   protected int nextID;
   protected Server server;
+  protected Socket createSock;
 
   public AcceptPeers (Server server) {
 	  this.nextID = 1;
@@ -28,17 +30,27 @@ public class AcceptPeers implements Runnable {
 
   public void run() {
 
-      try{
+      /*try{
           Authentication.Initialize();
       } catch (SQLException e){
           e.printStackTrace();
-      }
+      }*/
+    try {
+      System.out.println(this.server.ip);
+      this.createSock = new Socket(this.server.ip, 5000);
+    } catch (UnknownHostException e) {
+        e.printStackTrace();
+    } catch (IOException f) {
+        f.printStackTrace();
+    }
+
+    System.out.println("Connected to create peers");
 
     while (true) {
         System.out.println("AcceptPeers Thread Running...");
 
             try {
-                SSLSocket client = (SSLSocket) Server.getInstance().getServerSocket().accept();
+                SSLSocket client = (SSLSocket) Server.getServerSocket().accept();
                 ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
                 scheduledPool.schedule(new StorePeer(nextID, client, this), 0, TimeUnit.MILLISECONDS);
                 nextID++;
@@ -93,32 +105,33 @@ class StorePeer implements Runnable {
     			}
     			else if(message instanceof CreateRoomMessage) {
     				System.out.println("Received a Create Room Message");
+            String room_name = ((CreateRoomMessage) message).getRoomName();
+
     			}
     			else if(message instanceof LoginMessage) {
-                    System.out.println("Received a Login Message");
+              System.out.println("Received a Login Message");
 
     			    String user = ((LoginMessage) message).getUsername();
     			    String password = ((LoginMessage) message).getPassword();
 
-                    String response;
+              String response;
 
-    			    if(Authentication.login(user, password)) {
+    			    /*if(Authentication.login(user, password)) {
                         System.out.println("User: " + user + " logged in with pass: " + password);
                         String certificate = Authentication.loginSuccessful(user);
-                        Server.peers_username.put(id, user);
-                        response = new LoginResponse(Header.SUCCESS, certificate).toString();
+                        Server.peers_username.put(id, user);*/
+                        response = new LoginResponse(Header.SUCCESS, "certificate").toString();
 
-                    }
+                    /*}
     			    else {
                         System.out.println("User: " + user + " failed log in with pass: " + password);
                         response = new LoginResponse(Header.FAILURE, "").toString();
-                    }
+                    }*/
 
                     System.out.println(response);
                     pw.println(response);
 
-    			}
-                else if(message instanceof RegisterMessage) {
+    			}   else if(message instanceof RegisterMessage) {
     			    String user = ((RegisterMessage) message).getUsername();
     			    String password = ((RegisterMessage) message).getPassword();
 
@@ -133,21 +146,22 @@ class StorePeer implements Runnable {
 
                     String response;
 
-                    if(Authentication.register(user, email, firstName, lastName, password)) {
+                    /*if(Authentication.register(user, email, firstName, lastName, password)) {
                         System.out.println("User: " + user + " registered successfully with password: " + password);
 
                         //Registered successfully, now automatically logs in
                         String certificate = Authentication.loginSuccessful(user);
-                        Server.peers_username.put(id, user);
-                        response = new RegisterMessage(Header.SUCCESS, certificate).toString();
+                        Server.peers_username.put(id, user);*/
+                        response = new RegisterMessage(Header.SUCCESS, "certificate").toString();
 
 
-                    }
+                  /*  }
                     else {
                         System.out.println("User: " + user + " already exists in the database");
                         response = new RegisterMessage(Header.FAILURE, "").toString();
-                    }
+                    }*/
 
+                    System.out.println(response);
                     pw.println(response);
 
                 }
@@ -170,8 +184,8 @@ class StorePeer implements Runnable {
   		    System.out.println("Peer with id: " + id + " has disconnected.");
 
   	 }
-  	 catch (SQLException e){
+  	 /*catch (SQLException e){
         e.printStackTrace();
-     }
+     }*/
     }
 };

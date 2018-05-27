@@ -1,12 +1,10 @@
 package cli;
 import communication.Header;
-import communication.messages.LoginMessage;
-import communication.messages.RegisterMessage;
-import communication.responses.LoginResponse;
-import communication.responses.RegisterResponse;
-import communication.responses.Response;
+import communication.messages.*;
+import communication.responses.*;
 
 import javax.net.ssl.*;
+import java.net.*;
 import java.io.*;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +14,7 @@ public class Peer {
 
     private static String username="";
     private static SSLSocket socket = null;
-    private static SSLServerSocket serverSocket = null;
+    private static ServerSocket serverSocket = null;
     private static SSLSocketFactory factory = null;
     private PrintWriter out;
     private BufferedReader in;
@@ -26,6 +24,7 @@ public class Peer {
     private static String room="";
     private static String currLetter="";
     public static ConcurrentHashMap<Integer,SSLSocket> roomPeers = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<SSLSocket,Integer> roomPeersSocket = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,PrintWriter> outPeers = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<Integer,BufferedReader> inPeers = new ConcurrentHashMap<>();
     private static int maxPlayers = 0;
@@ -41,6 +40,7 @@ public class Peer {
         this.port = port;
         this.ip = ip;
 
+        //File file = new File("sss.keys");
         InputStream file = getClass().getResourceAsStream("trustStore");
         byte[] buffer = new byte[file.available()];
         file.read(buffer);
@@ -273,48 +273,63 @@ public class Peer {
 
     public void createRoom() {
 
-      System.out.println("-------------//--------------");
-      System.out.println("Insert the room name: ");
-      Scanner kb = new Scanner(System.in);
-      String roomName = kb.nextLine();
+        System.out.println("-------------//--------------");
+        System.out.println("Insert the room name: ");
+        Scanner kb = new Scanner(System.in);
+        String roomName = kb.nextLine();
 
-      System.out.println("Insert the number of players: ");
-      Scanner kb2 = new Scanner(System.in);
-      int players = kb2.nextInt();
+        int players = 0;
+        while ( (players < 2) && (players > 4) ) {
+          System.out.println("Insert the number of players (2,3 or 4): ");
+          Scanner kb2 = new Scanner(System.in);
+          players = kb2.nextInt();
+          if ( (players < 2) && (players > 4) )
+            System.out.println("Wrong number");
+        }
 
-/*
-      String createStr = createMessage(roomNamem, players);
-      this.out.println(joinStr);
 
-      this.maxPlayers = players
-      int i = 1;
+        String createStr = new CreateRoomMessage(roomName, players).toString();
+        this.out.println(createStr);
 
-      System.out.println("Accepting peers to join the room...");
 
-      while (i < this.maxPlayers) {
         try {
-            SSLSocket client = (SSLSocket) Server.getServerSocket().accept();
-            ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
-            scheduledPool.schedule(new linkPeer(i, client, this), 0, TimeUnit.MILLISECONDS);
-            i++;
+          String received = this.in.readLine();
+          Message message = Message.parse(received);
+
+
+          String responseString = this.in.readLine();
+          CreateRoomResponse response = (CreateRoomResponse) Response.parse(responseString);
+          //if (!message) {
+          //  System.out.println("Room not valid!");
+          //  return;
+          //}
+
+          this.maxPlayers = players;
+          int i = 1;
+
+          System.out.println("Accepting peers to join the room...");
+          this.serverSocket = new ServerSocket(9090);
+          Socket socket = this.serverSocket.accept();
+
+        /*  while (i < this.maxPlayers) {
+                SSLSocket client = (SSLSocket) Server.getServerSocket().accept();
+                ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+                scheduledPool.schedule(new linkPeer(i, client, this), 0, TimeUnit.MILLISECONDS);
+                i++;
+          }
+          */
 
         } catch (IOException e) {
-            e.printStackTrace();
+          e.printStackTrace();
         }
+
+        /*try {
+          TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }*/
       }
-
-      TimeUnit.SECONDS.sleep(1);
-      */
-    }
-
-    public void receiveLetter() {
-
-    }
-
-    public void setAndSendLetter() {
-
-    }
-}
+  }
 
 
 class linkPeer implements Runnable {
