@@ -36,7 +36,7 @@ public abstract class Message implements Header {
 
             case PLAY:
                 return new PlayMessage(args);
-
+                
         }
 
         return new ErrorMessage("Invalid message");
