@@ -67,7 +67,7 @@ public class Server implements Runnable {
 	}
 
 	public void setPeers(ConcurrentHashMap<Integer,SSLSocket> peers) {
-		Server.peers_id = peers;
+		this.peers_id = peers;
 	}
 
 	public int getPort() {
