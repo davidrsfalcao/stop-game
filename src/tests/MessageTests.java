@@ -283,8 +283,8 @@ public class MessageTests {
         String room_name = "4732647";
 
         /* Testar criar mensagem*/
-        String expected_message = Header.CREATEROOM + Header.SEPARATOR + room_name;
-        String message = new CreateRoomMessage(room_name).toString();
+        String expected_message = Header.CREATEROOM + Header.SEPARATOR + room_name + Header.SEPARATOR + 5;
+        String message = new CreateRoomMessage(room_name, 5).toString();
 
         assertEquals(expected_message, message);
 
@@ -293,10 +293,11 @@ public class MessageTests {
 
         assert(received_message instanceof CreateRoomMessage);
         assertEquals(room_name, ((CreateRoomMessage) received_message).getRoomName());
+        assertEquals(5, ((CreateRoomMessage) received_message).getMaxPlayers());
 
         /* Testar enviar mensagem com campos vazios */
-        String expected_message1 = Header.CREATEROOM + Header.SEPARATOR + "";
-        String message1 = new CreateRoomMessage("").toString();
+        String expected_message1 = Header.CREATEROOM + Header.SEPARATOR + "" + Header.SEPARATOR + 0;
+        String message1 = new CreateRoomMessage("",0).toString();
 
         assertEquals(expected_message1, message1);
 

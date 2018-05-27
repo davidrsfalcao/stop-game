@@ -17,21 +17,37 @@ public class CreateRoomMessage extends Message {
             return;
         }
 
-        room_name = args[2];
+        room_name = args[1];
 
-        if(args[2].equals("")){
+        if(args[1].equals("")){
             this.type = ERROR;
+            return;
         }
-        else this.type  = CREATEROOM;
+
+        try {
+            maxPlayers = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            maxPlayers = 0;
+            this.type = ERROR;
+            return;
+
+        }
+
+
+        this.type  = CREATEROOM;
+
     }
 
     @Override
     public String toString() {
-        return CREATEROOM + SEPARATOR + room_name;
+        return CREATEROOM + SEPARATOR + room_name + SEPARATOR + maxPlayers;
     }
 
     public String getRoomName() {
         return room_name;
     }
 
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
 }

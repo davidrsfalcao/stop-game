@@ -1,4 +1,4 @@
-package objects;
+package server;
 
 import javax.net.ssl.SSLSocket;
 import java.net.Inet4Address;

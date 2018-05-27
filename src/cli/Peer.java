@@ -41,7 +41,6 @@ public class Peer {
         this.port = port;
         this.ip = ip;
 
-        //File file = new File("sss.keys");
         InputStream file = getClass().getResourceAsStream("trustStore");
         byte[] buffer = new byte[file.available()];
         file.read(buffer);
