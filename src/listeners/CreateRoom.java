@@ -120,5 +120,7 @@ class StoreRoom implements Runnable {
       } catch (IOException e) {
             e.printStackTrace();
       }
+
+      System.out.println("Room " + this.name + " started.");
   }
 };

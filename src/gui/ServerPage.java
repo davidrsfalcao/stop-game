@@ -75,10 +75,10 @@ public class ServerPage extends Page {
                 String message = serverMessage.getText()+":"+port;
                 serverMessage.setText(message);
                 serverMessage.setVisible(true);
-                Server.port = port;
-                server = Server.getInstance();
+                //Server.port = port;
+                //server = Server.getInstance();
 
-                server.start();
+                //server.start();
 
             }
         });
