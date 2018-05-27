@@ -27,7 +27,6 @@ public class Menu extends Page {
 
     private JButton btnLogin;
     private JButton btnLoginFacebook;
-    private JButton btnCreateServer;
     private JButton btnExit;
     private JTextField usernameText;
     private JPasswordField passwordText;
@@ -93,15 +92,6 @@ public class Menu extends Page {
         btnLoginFacebook.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-            }
-        });
-
-        // Create Server
-        btnCreateServer = new JButton("Create Server");
-        btnCreateServer.setForeground(Color.BLACK);
-        btnCreateServer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                PageManager.getInstance().push_page(new ServerPage());
             }
         });
 
@@ -183,10 +173,6 @@ public class Menu extends Page {
         btnLoginFacebook.setBounds(400*ratio, 420*ratio, 224*ratio, 50*ratio);
         btnLoginFacebook.setFont(font);
         getContentPane().add(btnLoginFacebook);
-
-        btnCreateServer.setBounds(400*ratio, 480*ratio, 224*ratio, 50*ratio);
-        btnCreateServer.setFont(font);
-        getContentPane().add(btnCreateServer);
 
 
         btnExit.setBounds(400*ratio, 540*ratio, 224*ratio, 50*ratio);

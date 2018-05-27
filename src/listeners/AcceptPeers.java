@@ -38,7 +38,7 @@ public class AcceptPeers implements Runnable {
         System.out.println("AcceptPeers Thread Running...");
 
             try {
-                SSLSocket client = (SSLSocket) Server.getServerSocket().accept();
+                SSLSocket client = (SSLSocket) Server.getInstance().getServerSocket().accept();
                 ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
                 scheduledPool.schedule(new StorePeer(nextID, client, this), 0, TimeUnit.MILLISECONDS);
                 nextID++;
