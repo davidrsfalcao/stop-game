@@ -19,6 +19,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Iterator;
+import java.util.Random;
 
 
 public class CreateRoom implements Runnable {
@@ -82,12 +84,19 @@ class StoreRoom implements Runnable {
   private Room room;
   private int nextID;
   private ServerSocket roomServer;
+  private BufferedReader[] ins;
+  private PrintWriter[] outs;
+  private String letters = "qertuiopasdfghjlzxcvbnm";
+  private int round;
 
   public StoreRoom(String name, CreateRoom cr, Room room) {
     this.name = name;
     this.cr = cr;
     this.room = room;
     this.nextID = 1;
+    this.ins = new BufferedReader[room.getMaxPlayers()];
+    this.outs = new PrintWriter[room.getMaxPlayers()];
+    this.round = 1;
   }
 
   public void run()
@@ -123,36 +132,28 @@ class StoreRoom implements Runnable {
 
       System.out.println("Room " + this.name + " started.");
 
-      Iterator<String> it = ap.server.rooms.keySet().iterator();
+      Iterator<Integer> it = room.peers_id.keySet().iterator();
+      int i = 0;
 
       while(it.hasNext()){
-        String key = it.next();
-        System.out.println(key);
-        send = send + "," + key;
+        int key = it.next();
 
         try {
-            ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
-            scheduledPool.schedule(new StorePeer(nextID, client, this), 0, TimeUnit.MILLISECONDS);
+          PrintWriter pw = new PrintWriter(room.peers_id.get(key).getOutputStream(), true);
+          BufferedReader br = new BufferedReader(new InputStreamReader(room.peers_id.get(key).getInputStream()));
+          ins[i] = br;
+          outs[i] = pw;
+          i++;
         } catch (IOException e) {
-            e.printStackTrace();
+              e.printStackTrace();
         }
       }
-  }
-};
 
-class RoomPeers implements Runnable {
+      for (int j = 0; j < outs.length; j++) {
+        outs[j].println(round);
+      }
 
-  private String name;
-  private SSLSocket socket;
-  private CreateRoom cr;
-  private Room room;
-  private int nextID;
-  private ServerSocket roomServer;
-
-  public StoreRoom(String name, CreateRoom cr, Room room) {
-    this.name = name;
-    this.cr = cr;
-    this.room = room;
-    this.nextID = 1;
+      int randNum = new Random().nextInt(room.getMaxPlayers()) + 1;
+      System.out.println(randNum);
   }
 };

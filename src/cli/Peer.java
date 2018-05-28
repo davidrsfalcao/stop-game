@@ -40,7 +40,6 @@ public class Peer {
         this.port = port;
         this.ip = ip;
 
-        //File file = new File("sss.keys");
         InputStream file = getClass().getResourceAsStream("trustStore");
         byte[] buffer = new byte[file.available()];
         file.read(buffer);
@@ -305,7 +304,7 @@ public class Peer {
           System.out.println(this.roomPort);
           this.roomSocket = new Socket(this.ip, this.roomPort);
 
-          System.out.println("Joined room" + room + "!");
+          System.out.println("Joined room " + room + "!");
 
         } catch (IOException e) {
           e.printStackTrace();
@@ -317,7 +316,17 @@ public class Peer {
         this.inRoom = new BufferedReader(new InputStreamReader(this.roomSocket.getInputStream()));
         this.outRoom = new PrintWriter(this.roomSocket.getOutputStream(), true);
 
+        System.out.println();
+        System.out.println("-------------//--------------");
         System.out.println("Waiting for the game to start...");
-        String chooseLetter = this.in.readLine();
+
+        Boolean done = false;
+        while(!done) {
+          String round = this.inRoom.readLine();
+          System.out.println("Round " + round + " starts!");
+
+          String Letter = this.inRoom.readLine();
+
+        }
       }
   }

@@ -28,6 +28,10 @@ public class Room {
 		return port;
 	}
 
+	public String getName() {
+		return roomName;
+	}
+
 	public int getMaxPlayers() {
 		return max_players;
 	}
