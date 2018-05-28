@@ -1,26 +1,26 @@
 package listeners;
 
+import communication.messages.CreateRoomMessage;
+import communication.messages.Message;
+import communication.responses.CreateRoomResponse;
+import game.GameLogic;
 import objects.Room;
 import server.Server;
-import communication.Header;
-import communication.messages.*;
-import communication.responses.*;
 
-import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
-import java.net.*;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.*;
-import java.net.DatagramPacket;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Inet4Address;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Iterator;
-import java.util.Random;
 
 
 public class CreateRoom implements Runnable {
@@ -179,10 +179,10 @@ class StoreRoom implements Runnable {
               e.printStackTrace();
         }
 
-        //String[] scores = avaliar(results); String[]
-        //  for (int j = 0; j < scoresTotal.length; j++) {
-        //    scoresTotal[j] += scores[j];
-        //  }
+        int[] scores = GameLogic.score(results, letters.charAt(randNum));
+          for (int j = 0; j < scoresTotal.length; j++) {
+            scoresTotal[j] += scores[j];
+        }
 
         for (int j = 0; j < outs.length; j++) {
           outs[j].println(0 + "");
