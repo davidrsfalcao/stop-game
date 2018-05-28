@@ -14,7 +14,6 @@ Apia
 Ashgabat
 Asmara
 Astana
-Asunción
 Athens
 Avarua
 Baghdad
@@ -33,8 +32,6 @@ Berlin
 Bern
 Bishkek
 Bissau
-Bogotá
-Brasília
 Bratislava
 Brazzaville
 Bridgetown
@@ -65,7 +62,6 @@ Douglas
 Dublin
 Dushanbe
 Edinburgh of the Seven Seas
-El Aaiún
 Episkopi Cantonment
 Flying Fish Cove
 Freetown
@@ -78,7 +74,6 @@ Gibraltar
 Grytviken
 Guatemala City
 Gustavia
-Hagåtña
 Hamilton
 Hanga Roa
 Hanoi
@@ -112,7 +107,6 @@ Lilongwe
 Lima
 Lisbon
 Ljubljana
-Lomé
 London
 Luanda
 Lusaka
@@ -120,7 +114,6 @@ Luxembourg
 Madrid
 Majuro
 Malabo
-Malé
 Managua
 Manama
 Manila
@@ -150,7 +143,6 @@ Niamey
 Nicosia
 Nicosia
 Nouakchott
-Nouméa
 Nuku?alofa
 Nuuk
 Oranjestad
@@ -178,29 +170,25 @@ Porto-Novo
 Cotonou
 Prague
 Praia
-Pretoria 
+Pretoria
 Bloemfontein
 Cape Town
 Pristina
 Pyongyang
 Quito
 Rabat
-Reykjavík
 Riga
 Riyadh
 Road Town
 Rome
 Roseau
 Saipan
-San José
 San Juan
 San Marino
 San Salvador
 Sana'a
 Santiago
-Valparaíso
 Santo Domingo
-São Tomé
 Sarajevo
 Seoul
 Singapore
@@ -232,7 +220,6 @@ Thimphu
 Tirana
 Tiraspol
 Tokyo
-Tórshavn
 Tripoli
 Tskhinvali
 Tunis
@@ -253,7 +240,6 @@ Willemstad
 Windhoek
 Yamoussoukro
 Abidjan
-Yaoundé
 Yaren
 Yerevan
 Zagreb
