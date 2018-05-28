@@ -88,6 +88,7 @@ class StoreRoom implements Runnable {
   private PrintWriter[] outs;
   private String letters = "qertuiopasdfghjlzxcvbnm";
   private int round;
+  private Integer[] scoresTotal;
 
   public StoreRoom(String name, CreateRoom cr, Room room) {
     this.name = name;
@@ -96,6 +97,12 @@ class StoreRoom implements Runnable {
     this.nextID = 1;
     this.ins = new BufferedReader[room.getMaxPlayers()];
     this.outs = new PrintWriter[room.getMaxPlayers()];
+    this.scoresTotal = new Integer[room.getMaxPlayers()];
+
+    for (int i = 0; i < scoresTotal.length; i++) {
+      scoresTotal[i] = 0;
+    }
+
     this.round = 1;
   }
 
@@ -149,11 +156,53 @@ class StoreRoom implements Runnable {
         }
       }
 
-      for (int j = 0; j < outs.length; j++) {
-        outs[j].println(round);
+      while (round < 3) {
+
+        for (int j = 0; j < outs.length; j++) {
+          outs[j].println(round);
+        }
+
+        int randNum = new Random().nextInt(23);
+        System.out.println(letters.charAt(randNum));
+
+        for (int j = 0; j < outs.length; j++) {
+          outs[j].println(letters.charAt(randNum));
+        }
+
+        String[] results = new String[room.getMaxPlayers()];
+
+        try {
+          for (int j = 0; j < ins.length; j++) {
+            results[j] = ins[j].readLine();
+          }
+        } catch (IOException e) {
+              e.printStackTrace();
+        }
+
+        //String[] scores = avaliar(results); String[]
+        //  for (int j = 0; j < scoresTotal.length; j++) {
+        //    scoresTotal[j] += scores[j];
+        //  }
+
+        for (int j = 0; j < outs.length; j++) {
+          outs[j].println(0 + "");
+        }
+
+        round++;
       }
 
-      int randNum = new Random().nextInt(room.getMaxPlayers()) + 1;
-      System.out.println(randNum);
+      int max = 0;
+      for (int j = 0; j < scoresTotal.length; j++) {
+        if (scoresTotal[j] > max)
+          max = j;
+      }
+
+      for (int j = 0; j < outs.length; j++) {
+        if (max == j)
+          outs[j].println("Won");
+        else
+          outs[j].println("Lost");
+      }
+
   }
 };

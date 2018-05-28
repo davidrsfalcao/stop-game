@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
+import java.util.concurrent.*;
+
 public class Peer {
     private static Peer peer;
 
@@ -30,6 +32,7 @@ public class Peer {
     private static int maxPlayers = 0;
     private static int points=0;
     private static int rond=0;
+    public String[] answer;
 
     public static String[] ENC_PROTOCOLS = new String[] {"TLSv1.2"};
     public static String[] ENC_CYPHER_SUITES = new String[] {"TLS_DHE_RSA_WITH_AES_128_CBC_SHA"};
@@ -313,6 +316,9 @@ public class Peer {
 
       public void playGame() throws IOException {
 
+        ExecutorService roundExecutor = Executors.newSingleThreadExecutor();
+    	  Future<String> future;
+
         this.inRoom = new BufferedReader(new InputStreamReader(this.roomSocket.getInputStream()));
         this.outRoom = new PrintWriter(this.roomSocket.getOutputStream(), true);
 
@@ -325,8 +331,96 @@ public class Peer {
           String round = this.inRoom.readLine();
           System.out.println("Round " + round + " starts!");
 
-          String Letter = this.inRoom.readLine();
+          String letter = this.inRoom.readLine();
+
+          System.out.println("The letter is: " + letter);
+
+          peer.answer = new String[6];
+
+          future = roundExecutor.submit(new Round(peer, letter));
+          try {
+              System.out.println("Started..");
+              System.out.println(future.get(15, TimeUnit.SECONDS));
+              System.out.println("Finished!");
+          } catch (TimeoutException e) {
+              future.cancel(true);
+              System.out.println("Terminated!");
+          } catch (InterruptedException e) {
+      			e.printStackTrace();
+      		} catch (ExecutionException e) {
+      			e.printStackTrace();
+      		}
+
+          //roundExecutor.shutdownNow();
+
+          String answer2 = "";
+          for (int k = 0; k < peer.answer.length; k++) {
+            if (k == 5)
+              answer2 = answer2 + peer.answer[k];
+            else
+              answer2 = answer2 + peer.answer[k] + ",";
+          }
+
+          System.out.println(answer2);
+          this.outRoom.println(answer2);
+
+          String score = this.inRoom.readLine();
+          System.out.println("Round " + round + " score: " + score);
+
+          if (round.equals("2"))
+            break;
 
         }
+
+        String result = this.inRoom.readLine();
+        System.out.println("You " + result + " the game!");
       }
   }
+
+  class Round implements Callable<String> {
+
+    private Peer peer;
+    private String letter;
+
+    public Round(Peer peer, String letter) {
+      this.peer = peer;
+      this.letter = letter;
+    }
+
+  	@Override
+  	public String call() throws Exception {
+  		while(!Thread.interrupted()) {
+        System.out.println("Insert a Name with the letter: " + letter);
+        Scanner kb = new Scanner(System.in);
+        String temp = kb.nextLine();
+        peer.answer[0] = temp;
+
+        System.out.println("Insert a Capital with the letter: " + letter);
+        kb = new Scanner(System.in);
+        temp = kb.nextLine();
+        peer.answer[1] = temp;
+
+        System.out.println("Insert a Countries with the letter: " + letter);
+        kb = new Scanner(System.in);
+        temp = kb.nextLine();
+        peer.answer[2] = temp;
+
+        System.out.println("Insert a TV Shows with the letter: " + letter);
+        kb = new Scanner(System.in);
+        temp = kb.nextLine();
+        peer.answer[3] = temp;
+
+        System.out.println("Insert a Animals with the letter: " + letter);
+        kb = new Scanner(System.in);
+        temp = kb.nextLine();
+        peer.answer[4] = temp;
+
+        System.out.println("Insert a Brands with the letter: " + letter);
+        kb = new Scanner(System.in);
+        temp = kb.nextLine();
+        peer.answer[5] = temp;
+  		}
+  		// TODO Auto-generated method stub
+  		return null;
+  	}
+}
